@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">News</string>
+    <string name="headlines">Headlines</string>
+    <string name="sources">Sources</string>
+    <string name="saved">Saved</string>
+    <string name="general">General</string>
+    <string name="business">Business</string>
+    <string name="traveling">Traveling</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="main_picture">Main picture</string>
+    <string name="avatar">Avatar</string>
+    <string name="content_description_filter">Content description filter</string>
+    <string name="content_description_search">Content description search</string>
+    <string name="news_app">News APP</string>
+    <string name="filters">Filters</string>
+    <string name="checked">Checked</string>
+    <string name="content_description_checked">Content description checked</string>
+    <string name="popular_post">Popular</string>
+    <string name="new_post">New</string>
+    <string name="relevant_post">Relevant</string>
+</resources>

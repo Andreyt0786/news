@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/common_spacing12">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="@dimen/common_spacing114"
+            android:layout_height="@dimen/common_spacing64"
+            android:layout_marginLeft="@dimen/common_spacing12"
+            android:layout_marginTop="@dimen/common_spacing12"
+            android:layout_marginRight="@dimen/common_spacing16"
+            android:layout_marginBottom="@dimen/common_spacing12"
+            android:contentDescription="@string/main_picture"
+            android:src="@mipmap/img_cnbc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/common_spacing20"
+            android:layout_height="@dimen/common_spacing20"
+            android:layout_marginLeft="@dimen/common_spacing16"
+            android:layout_marginBottom="@dimen/common_spacing4"
+            android:background="@drawable/round_outline"
+            android:clipToOutline="true"
+            android:contentDescription="@string/avatar"
+            app:layout_constraintStart_toEndOf="@id/thumbnail"
+            app:layout_constraintTop_toTopOf="@id/thumbnail"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
+            app:srcCompat="@mipmap/times" />
+
+
+        <TextView
+            android:id="@+id/company_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing8"
+            android:textAppearance="@style/LabSmal"
+            app:layout_constraintBottom_toBottomOf="@id/avatar"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintTop_toTopOf="@id/avatar"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="New York Times " />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="206dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/common_spacing16"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="@style/LabLar"
+            app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+            app:layout_constraintStart_toStartOf="@id/avatar"
+            app:layout_constraintTop_toBottomOf="@id/avatar"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="A ConstraintLayout is a ViewGroup which allows you to position and size widgets in a flexible way. " />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

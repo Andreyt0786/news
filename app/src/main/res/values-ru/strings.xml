@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">News</string>
+    <string name="headlines">Заголовки</string>
+    <string name="sources">Источники</string>
+    <string name="saved">Избранный</string>
+    <string name="general">Главный</string>
+    <string name="business">Бизнес</string>
+    <string name="traveling">Путешествия</string>
+    <string name="search">Поиск</string>
+    <string name="filter">Фильтр</string>
+    <string name="main_picture">Основная картинка</string>
+    <string name="avatar">Аватарка</string>
+    <string name="content_description_filter">Описание контента - фильтр</string>
+    <string name="content_description_search">Описание контента - Поиск</string>
+    <string name="news_app">News APP</string>
+    <string name="popular_post">Popular</string>
+    <string name="new_post">New</string>
+    <string name="relevant_post">Relevant</string>
+    <string name="filters">Filters</string>
+    <string name="checked">Готов</string>
+    <string name="content_description_checked">Описание контента - Готово</string>
+</resources>

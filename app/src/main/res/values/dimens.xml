@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="common_spacing16">16dp</dimen>
+    <dimen name="common_spacing24">24dp</dimen>
+    <dimen name="common_spacing48">48dp</dimen>
+    <dimen name="common_spacing8">8dp</dimen>
+    <dimen name="common_spacing12">12dp</dimen>
+    <dimen name="common_spacing64">64dp</dimen>
+    <dimen name="common_spacing114">114dp</dimen>
+    <dimen name="common_spacing20">20dp</dimen>
+    <dimen name="common_spacing4">4dp</dimen>
+</resources>

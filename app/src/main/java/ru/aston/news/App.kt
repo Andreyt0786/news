@@ -24,7 +24,7 @@ class App : Application() {
         lateinit var appComponent:AppComponent
         internal lateinit var INSTANCE: App
             private set
-        private val cicerone = Cicerone.create()
+       private val cicerone = Cicerone.create()
         val router get() = cicerone.router
         val navigatorHolder get() = cicerone.getNavigatorHolder()
     }

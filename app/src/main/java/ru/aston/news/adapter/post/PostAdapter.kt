@@ -14,14 +14,6 @@ import ru.aston.news.databinding.CardPostBinding
 
 
 interface OnInteractionListener {
-    fun onLike(post: Post) {}
-    fun onEdit(post: Post) {}
-    fun onRemove(post: Post) {}
-    fun onShare(post: Post) {}
-    fun previewPhoto(post: Post) {}
-    fun playVideo(post: Post) {}
-    fun playMusic(post: Post) {}
-
     fun showWall(post: Post) {}
 }
 
@@ -65,16 +57,51 @@ class PostViewHolder(
 
         binding.apply {
             companyName.text = post.source.name
-            text.text = post.desription
+            text.text = post.title
 
-            binding.avatar.setImageResource(R.mipmap.cnbc)
+            /*  if(post.source.id=="cnn")
+              binding.avatar.setImageResource(R.mipmap.cnn)
+              */
+            var urlava: Int
+            when (post.source.name) {
+                "CNN" -> urlava = R.mipmap.cnn
+                "BBC" -> urlava = R.mipmap.bbc
+                "Bloomberg" -> urlava = R.mipmap.bloomberg
+                "Fox News" -> urlava = R.mipmap.foxnews
+                "CNBC" -> urlava = R.mipmap.cnbc
+                else -> urlava = R.mipmap.noava
+            }
+
+            Glide.with(binding.avatar)
+                .load(urlava)
+                .timeout(10000)
+                .circleCrop()
+                .into(binding.avatar)
+
+
+
+            if (post.urlToImage.isNullOrEmpty()) {
+                binding.avatar.setImageResource(R.mipmap.noimageavailable)
+            } else {
                 val url = post.urlToImage
                 Glide.with(binding.thumbnail)
                     .load(url)
                     .timeout(10000)
-                    .circleCrop()
                     .into(binding.thumbnail)
             }
+
+            companyName.setOnClickListener {
+                onInteractionListener.showWall(post)
+            }
+
+            text.setOnClickListener {
+                onInteractionListener.showWall(post)
+            }
+
+            avatar.setOnClickListener {
+                onInteractionListener.showWall(post)
+            }
+        }
     }
 }
 

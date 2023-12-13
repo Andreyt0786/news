@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.aston.news.R
 import ru.aston.news.adapter.pager.NumberAdapter
@@ -17,7 +15,7 @@ class HeadLineFragment : Fragment() {
     private lateinit var adapter: NumberAdapter
 
     private val fragList = listOf(
-        GeneralHeadFragment(),//(.newInstance()),
+        GeneralsHeadFragment(),//(.newInstance()),
         GeneralBusinessFragment(),
         GeneralTravelFragment(),
     )
@@ -25,7 +23,7 @@ class HeadLineFragment : Fragment() {
     private val fragitems = listOf(
         "General",
         "Business",
-        "Travel"
+        "Sport"
     )
 
     private val fragmentPicture = listOf(

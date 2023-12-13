@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="89dp">
+
+    <View
+        android:id="@+id/topSeparator"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="@dimen/common_spacing40"
+        android:layout_height="@dimen/common_spacing40"
+        android:layout_marginStart="@dimen/common_spacing12"
+        android:layout_marginTop="@dimen/common_spacing12"
+        android:layout_marginEnd="@dimen/common_spacing16"
+        android:layout_marginBottom="@dimen/common_spacing12"
+        android:contentDescription="@string/main_picture"
+        android:src="@mipmap/cnbc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topSeparator" />
+
+
+
+    <TextView
+        android:id="@+id/company_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing16"
+        android:layout_marginEnd="@dimen/common_spacing24"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintTop_toTopOf="@id/avatar"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="New York Times " />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:textSize="14sp"
+        android:layout_marginStart="@dimen/common_spacing16"
+        android:layout_marginEnd="@dimen/common_spacing24"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintTop_toBottomOf="@id/company_name"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Entertaiment | US"
+        />
+    <View
+        android:id="@+id/bottomSeparator"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

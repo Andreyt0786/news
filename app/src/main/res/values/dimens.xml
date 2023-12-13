@@ -3,6 +3,7 @@
     <dimen name="common_spacing16">16dp</dimen>
     <dimen name="common_spacing24">24dp</dimen>
     <dimen name="common_spacing48">48dp</dimen>
+    <dimen name="common_spacing40">40dp</dimen>
     <dimen name="common_spacing8">8dp</dimen>
     <dimen name="common_spacing12">12dp</dimen>
     <dimen name="common_spacing64">64dp</dimen>

@@ -10,6 +10,7 @@
     <string name="filter">Filter</string>
     <string name="main_picture">Main picture</string>
     <string name="avatar">Avatar</string>
+    <string name="source">Source</string>
     <string name="content_description_filter">Content description filter</string>
     <string name="content_description_search">Content description search</string>
     <string name="news_app">News APP</string>

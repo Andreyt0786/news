@@ -1,4 +1,3 @@
-
 package ru.aston.news.di
 
 import dagger.Component
@@ -7,9 +6,15 @@ import ru.aston.news.di.api.ApiModule
 import ru.aston.news.di.appModule.AppModule
 import ru.aston.news.di.data.DataModule
 import ru.aston.news.di.db.DbModule
+import ru.aston.news.di.navigation.NavigationModule
+import ru.aston.news.di.presenter.PresenterModule
 import ru.aston.news.di.repository.RepositoryModule
+import ru.aston.news.di.viewModel.ViewModelModule
 import ru.aston.news.uiscreen.BottomNavigationFragment
+import ru.aston.news.uiscreen.CheckSourceFragment
 import ru.aston.news.uiscreen.GeneralBusinessFragment
+import ru.aston.news.uiscreen.GeneralsHeadFragment
+import ru.aston.news.uiscreen.SourceFragment
 import javax.inject.Singleton
 
 
@@ -19,7 +24,11 @@ import javax.inject.Singleton
         DataModule::class,
         DbModule::class,
         ApiModule::class,
-        RepositoryModule::class]
+        RepositoryModule::class,
+        NavigationModule::class,
+        PresenterModule::class,
+        ViewModelModule::class,
+    ]
 )
 @Singleton
 interface AppComponent {
@@ -29,6 +38,12 @@ interface AppComponent {
     fun inject(fragment: BottomNavigationFragment)
 
     fun inject(fragment: GeneralBusinessFragment)
+
+    fun inject(fragment: GeneralsHeadFragment)
+
+    fun inject(fragment: SourceFragment)
+
+    fun inject(fragment:CheckSourceFragment)
 }
 /*
     fun inject(activity: MainActivity)

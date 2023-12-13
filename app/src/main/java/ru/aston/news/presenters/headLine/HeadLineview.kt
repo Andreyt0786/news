@@ -3,10 +3,9 @@ package ru.aston.news.presenters.headLine
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndStrategy
 import moxy.viewstate.strategy.StateStrategyType
+import ru.aston.news.dto.Post
 
 @StateStrategyType(value = AddToEndStrategy::class)
 interface HeadLineView : MvpView {
-    fun invokePresenterToCallApi()
-
-    fun showPost()
+    fun updateRecycler(posts: List<Post>)
 }

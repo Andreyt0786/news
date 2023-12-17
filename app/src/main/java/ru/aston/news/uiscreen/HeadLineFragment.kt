@@ -23,7 +23,7 @@ class HeadLineFragment : Fragment() {
     private val fragitems = listOf(
         "General",
         "Business",
-        "Sport"
+        "Traveling"
     )
 
     private val fragmentPicture = listOf(

@@ -14,6 +14,7 @@ import ru.aston.news.uiscreen.BottomNavigationFragment
 import ru.aston.news.uiscreen.CheckSourceFragment
 import ru.aston.news.uiscreen.GeneralBusinessFragment
 import ru.aston.news.uiscreen.GeneralsHeadFragment
+import ru.aston.news.uiscreen.SinglePostFragment
 import ru.aston.news.uiscreen.SourceFragment
 import javax.inject.Singleton
 
@@ -44,6 +45,8 @@ interface AppComponent {
     fun inject(fragment: SourceFragment)
 
     fun inject(fragment:CheckSourceFragment)
+
+    fun inject(fragment:SinglePostFragment)
 }
 /*
     fun inject(activity: MainActivity)

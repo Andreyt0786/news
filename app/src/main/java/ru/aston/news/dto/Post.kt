@@ -13,12 +13,12 @@ data class Post(
     val idPost:Int,
     val source :Source,
     val author: String?,
-    val title: String,
+    var title: String,
     val description:String?,
     val url: String,
     val urlToImage:String?,
     val publishedAt:String,
-    val content:String?,
+    var content:String?,
 )
 data class Source(
     val id:String?,

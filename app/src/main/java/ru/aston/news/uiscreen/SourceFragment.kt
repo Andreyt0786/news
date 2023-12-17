@@ -11,25 +11,20 @@ import androidx.lifecycle.lifecycleScope
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import moxy.presenter.InjectPresenter
-import moxy.presenter.ProvidePresenter
 import ru.aston.news.App
-import ru.aston.news.adapter.post.OnInteractionListener
+import ru.aston.news.App.Companion.router
 import ru.aston.news.adapter.sourcePost.InteractionListener
 import ru.aston.news.adapter.sourcePost.SourcePostAdapter
-import ru.aston.news.databinding.FragmentHeadBusinessBinding
 import ru.aston.news.databinding.FragmentSourcesBinding
-import ru.aston.news.dto.Post
+import ru.aston.news.dto.RouterProvider
 import ru.aston.news.dto.Screens.ForwardCheckSource
 import ru.aston.news.dto.SourcePost
-import ru.aston.news.presenters.headLine.HeadLinePresenterImpl
 import ru.aston.news.viewModel.SourcePostViewModel
 import javax.inject.Inject
 
 class SourceFragment() : Fragment() {
-
-    @Inject
-    lateinit var router: Router
+   // @Inject
+   //lateinit var router: Router
 
     @Inject
     lateinit var viewModel: SourcePostViewModel
@@ -38,7 +33,7 @@ class SourceFragment() : Fragment() {
     private val adapter = SourcePostAdapter(object : InteractionListener {
 
         override fun showWall(sourcePost: SourcePost) {
-            Log.d("SourceFragment", "ShowWall")
+              Log.d("SourceFragment", "ShowWall")
             router.navigateTo(ForwardCheckSource(sourcePost.id, sourcePost.name))
         }
     })

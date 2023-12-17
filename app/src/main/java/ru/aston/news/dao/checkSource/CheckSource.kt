@@ -17,4 +17,7 @@ interface CheckSourceDao {
 
     @Query("DELETE FROM CheckSourceEntity")
     suspend fun clear()
+
+    @Query("SELECT * FROM CheckSourceEntity")
+    fun getPost(): List<CheckSourceEntity>
 }

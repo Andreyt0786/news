@@ -3,7 +3,7 @@
     <style name="Theme.News" parent="Theme.Material3.DayNight">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">@color/primary_60</item>
         <item name="colorPrimary">@color/primary_60</item>
         <item name="colorAccent">@color/primary_50</item>
         <item name="colorPrimaryDark">@color/primary_50</item>

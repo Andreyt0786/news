@@ -12,6 +12,8 @@ class CheckSourceViewModel @Inject constructor(
 
     val posts = repository.dataCheckPost
 
+    val listPost = repository.dataPost
+
     fun loadSourcePost(source: String) = viewModelScope.launch {
         repository.getSourcePost(source)
     }

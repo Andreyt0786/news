@@ -1,6 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fitsSystemWindows="true"
+        >
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@color/primary_50"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            >
+
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/main_picture"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/img_cnbc"
+                app:layout_collapseMode="parallax"
+                android:fitsSystemWindows="true"/>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon = "@drawable/arrow_back_24px"
+                app:menu="@menu/menu_saved"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#BFC8CC"
+                android:orientation="vertical">
+
+
+                <View
+                    android:id="@+id/topSeparator"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+
+                    />
+
+                <TextView
+                    android:id="@+id/headline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/common_spacing16"
+                    android:layout_marginTop="@dimen/common_spacing12"
+                    android:layout_marginEnd="@dimen/common_spacing24"
+                    android:lineSpacingExtra="5sp"
+                    android:maxLines="2"
+                    android:textSize="16sp"
+                    tools:text="Americans are getting worried about the job market " />
+
+                <TextView
+                    android:id="@+id/data"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="@dimen/common_spacing16"
+                    android:layout_marginEnd="@dimen/common_spacing24"
+                    android:textSize="14sp"
+                    tools:text="Mar 20, 2023 | 10:57 AM" />
+
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="@dimen/common_spacing16"
+                    android:layout_marginEnd="@dimen/common_spacing24"
+                    android:textSize="14sp"
+                    tools:text="FOX NEWS" />
+
+                <View
+                    android:id="@+id/bottomSeparator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0.8dp"
+                    android:layout_marginTop="@dimen/common_spacing12"
+                    android:background="#40484B" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/common_spacing16"
+                android:layout_marginTop="@dimen/common_spacing15"
+                android:layout_marginEnd="@dimen/common_spacing16"
+                android:lineSpacingExtra="5sp"
+                android:textSize="16sp"
+                android:autoLink="web"
+                tools:text="Washington, DCCNN — US consumer confidence worsened in April as Americans become more pessimistic about the job market. The Conference Board’s Consumer Confidence Index, which measures attitudes toward the economy and the job market, fell to 101.3 in April, down from 104 in March and marking the lowest level since July 2022. The business group’s measure of economic expectations fell in April and has remained below a threshold “associated with a recession within the next year” for every month since February 2022, with the exception of an uptick in December. Consumer attitudes have held steady since the turbulence in the banking industry last month, but high inflation and economic uncertainty have continued to weigh on consumers. “Consumers became more pessimistic about the outlook for both business conditions and labor markets,” said Ataman Ozyildirim, senior director of economics at The Conference Board, in a statement accompanying the data. “Compared to last month, fewer households expect business conditions to improve and more expect worsening of conditions in the next six months. They also expect fewer jobs to be available over the short term.” That matches government figures showing the labor market has begun to show some cracks. Employers added 236,000 jobs in March, the smallest gain in two years, and job openings fell below 10 million for the first time since May 2021. Large companies have continued to announce layoffs, such as 3M, which announced on Tuesday that it is cutting 6,000 jobs. The April survey showed that worries about the economy slipping into a recession persisted last month. Economists, including those at the Federal Reserve, expect a recession later in the year as the Fed’s rate hikes take a deeper hold. The share of consumers expecting more jobs to be available fell to 12.5% in April, down from 15.5% in March, while the share who anticipate fewer jobs increased to 21% from 20.5% during the same period." />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

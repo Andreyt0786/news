@@ -13,6 +13,7 @@
     <string name="avatar">Аватарка</string>
     <string name="content_description_filter">Описание контента - фильтр</string>
     <string name="content_description_search">Описание контента - Поиск</string>
+    <string name="content_description_saved">Content description Избранное</string>
     <string name="news_app">News APP</string>
     <string name="popular_post">Popular</string>
     <string name="new_post">New</string>

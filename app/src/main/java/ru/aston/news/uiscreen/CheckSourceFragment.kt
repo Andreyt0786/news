@@ -2,6 +2,7 @@ package ru.aston.news.uiscreen
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +16,12 @@ import ru.aston.news.adapter.post.OnInteractionListener
 import ru.aston.news.adapter.post.PostAdapter
 import ru.aston.news.databinding.FragmentCheckPostBinding
 import ru.aston.news.dto.Post
+import ru.aston.news.dto.Screens
+import ru.aston.news.dto.Screens.ForwardSinglePost
 import ru.aston.news.viewModel.CheckSourceViewModel
 import javax.inject.Inject
 
 class CheckSourceFragment (): Fragment() {
-
-    @Inject
-    lateinit var router:Router
 
     @Inject
     lateinit var viewModel: CheckSourceViewModel
@@ -29,6 +29,10 @@ class CheckSourceFragment (): Fragment() {
     private var binding: FragmentCheckPostBinding? = null
     private val adapter = PostAdapter(object : OnInteractionListener {
 
+        override fun showWall(Post: Post) {
+            Log.d("SourceFragment", "ShowWall")
+            App.router.navigateTo(ForwardSinglePost(Post.idPost))
+        }
     })
 
 

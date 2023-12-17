@@ -9,10 +9,10 @@ import ru.aston.news.dto.Screens.BottomNavigation
 @InjectViewState
 class ActivityPresenter (private val router: Router):MvpPresenter<ActivityView>() {
 
-    override fun onFirstViewAttach() {
+   /* override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         router.newRootScreen(BottomNavigation())
-    }
+    }*/
     fun onBackPressed(){
         router.exit()
     }

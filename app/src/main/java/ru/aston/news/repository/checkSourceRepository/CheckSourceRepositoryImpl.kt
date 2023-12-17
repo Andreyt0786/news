@@ -29,4 +29,6 @@ class CheckSourceRepositoryImpl @Inject constructor(
             sourcePost.body()?.posts ?: throw ApiError(sourcePost.code(), sourcePost.message())
         checkSourceDao.insertAll(body.toCheckSourceEntity())
     }
+
+    override val dataPost: List<Post> = checkSourceDao.getPost().map{it.toDto()}
 }

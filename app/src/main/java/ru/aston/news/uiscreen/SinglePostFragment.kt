@@ -22,6 +22,7 @@ import ru.aston.news.App
 import ru.aston.news.R
 import ru.aston.news.databinding.FragmentSinglePostBinding
 import ru.aston.news.dto.Screens.BackCheckSource
+import ru.aston.news.dto.Screens.ForwardCheckSource
 import ru.aston.news.viewModel.CheckSourceViewModel
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -33,6 +34,9 @@ class SinglePostFragment : Fragment() {
 
     private val title: Int
         get() = arguments?.getInt(EXTRA_TITLE)!!
+
+    private val prevesId: String
+        get() = arguments?.getString(EXTRA_ID)!!
 
 
     @Inject
@@ -56,12 +60,12 @@ class SinglePostFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        Log.d("SourceFragment", "title")
+        Log.d("SinglePostFragment", "SinglePostFragment")
+        Log.d("SinglePostFragment", "title")
         val posts = viewModel.listPost
-        Log.d("SourceFragment", "$posts")
+        Log.d("SinglePostFragment", "$posts")
         val post = posts.find { it.idPost == title }
-        Log.d("SourceFragment", "$post")
+        Log.d("SinglePostFragment", "$post")
 
 
         Log.d("SourceFragment", "$title")
@@ -74,7 +78,7 @@ class SinglePostFragment : Fragment() {
 
 
         binding?.toolbar?.setNavigationOnClickListener {
-            viewModel.navigate(BackCheckSource())
+            viewModel.navigate(ForwardCheckSource(prevesId,prevesId))
         }
 
         binding?.toolbar?.setOnMenuItemClickListener { menuItem ->
@@ -109,11 +113,13 @@ class SinglePostFragment : Fragment() {
 
     companion object {
         private const val EXTRA_TITLE = "extra_title"
+        private const val EXTRA_ID = "extra_id"
 
-        fun getNewInstance(title: Int): SinglePostFragment {
+        fun getNewInstance(title: Int, prevId:String): SinglePostFragment {
             return SinglePostFragment().apply {
                 arguments = Bundle().apply {
                     putInt(EXTRA_TITLE, title)
+                    putString(EXTRA_ID, prevId)
                 }
             }
         }

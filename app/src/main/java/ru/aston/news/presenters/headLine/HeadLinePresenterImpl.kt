@@ -8,6 +8,7 @@ import moxy.InjectViewState
 import moxy.MvpPresenter
 import ru.aston.news.App
 import ru.aston.news.DisposableManager
+import ru.aston.news.dto.Screens.ForwardSingleBusinessPost
 import ru.aston.news.repository.PostRepository
 import ru.aston.news.uiscreen.SingleBusinessFragment
 import javax.inject.Inject
@@ -18,8 +19,8 @@ class HeadLinePresenterImpl @Inject constructor(
 ) : MvpPresenter<HeadLineView>() {
     val TAG = HeadLinePresenterImpl::class.java.simpleName
 
-    fun navigate(screen: FragmentScreen){
-        App.router.navigateTo(screen)
+    fun navigate(id:String){
+        App.router.navigateTo(ForwardSingleBusinessPost(id))
     }
     fun getData() {
         DisposableManager.add(

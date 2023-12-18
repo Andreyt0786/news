@@ -16,15 +16,15 @@ object Screens : Screen {
     fun ForwardCheckSource(containerId: String, containerName: String) = FragmentScreen {
         CheckSourceFragment.getNewInstance(containerId, containerName)
     }
-    fun ForwardSinglePost(title: Int) = FragmentScreen {
-        SinglePostFragment.getNewInstance(title)
+    fun ForwardSinglePost(title: Int,prevId:String) = FragmentScreen {
+        SinglePostFragment.getNewInstance(title, prevId)
     }
 
     fun BackCheckSource()=FragmentScreen {
         CheckSourceFragment()
     }
 
-    fun ForwardSingleBusinessPost(title: Int) = FragmentScreen {
+    fun ForwardSingleBusinessPost(title: String) = FragmentScreen {
         SingleBusinessFragment.getNewInstance(title)
     }
 

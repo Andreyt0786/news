@@ -60,14 +60,14 @@ class SingleGeneralFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        Log.d("SourceFragment", "title")
+        Log.d("Fragment", "title")
         val posts = viewModel.posts
-        Log.d("SourceFragment", "$posts")
+        Log.d("Fragment", "$posts")
         val post = posts.find { it.idPost == title }
-        Log.d("SourceFragment", "$post")
+        Log.d("Fragment", "$post")
 
 
-        Log.d("SourceFragment", "$title")
+        Log.d("Fragment", "$title")
         val time = post?.publishedAt
         val actual = OffsetDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME)
         val formatter = DateTimeFormatter.ofPattern(" MMM, dd yyyy | HH:mm")

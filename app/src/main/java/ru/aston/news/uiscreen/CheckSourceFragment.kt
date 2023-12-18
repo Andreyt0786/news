@@ -22,9 +22,14 @@ class CheckSourceFragment() : Fragment() {
     lateinit var viewModel: CheckSourceViewModel
 
     private var binding: FragmentCheckPostBinding? = null
+
+    private val title: String
+        get() = arguments?.getString(CheckSourceFragment.EXTRA_ID)!!
+
+
     private val adapter = PostAdapter { post ->
 
-            viewModel.navigate(ForwardSinglePost(post.idPost))
+            viewModel.navigate(ForwardSinglePost(post.idPost,title ))
         }
 
 

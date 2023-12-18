@@ -28,7 +28,7 @@ object Screens : Screen {
         SingleBusinessFragment.getNewInstance(title)
     }
 
-    fun ForwardSingleGeneralPost(title: Int) = FragmentScreen {
+    fun ForwardSingleGeneralPost(title: String) = FragmentScreen {
         SingleGeneralFragment.getNewInstance(title)
     }
 

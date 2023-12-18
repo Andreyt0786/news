@@ -34,8 +34,8 @@ class SingleGeneralFragment : Fragment() {
 
     private var binding: FragmentSinglePostBinding? = null
 
-    private val title: Int
-        get() = arguments?.getInt(EXTRA_TITLE)!!
+    private val title: String
+        get() = arguments?.getString(EXTRA_TITLE)!!
 
 
     @Inject
@@ -60,11 +60,11 @@ class SingleGeneralFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        Log.d("Fragment", "title")
+        Log.d("GeneralFragment", "title = $title")
         val posts = viewModel.posts
-        Log.d("Fragment", "$posts")
-        val post = posts.find { it.idPost == title }
-        Log.d("Fragment", "$post")
+        Log.d("GeneralFragment", "$posts")
+        val post = posts.find { it.author == title }
+        Log.d("GeneralFragment", "$post")
 
 
         Log.d("Fragment", "$title")
@@ -113,10 +113,10 @@ class SingleGeneralFragment : Fragment() {
     companion object {
         private const val EXTRA_TITLE = "extra_title"
 
-        fun getNewInstance(title: Int): SinglePostFragment {
+        fun getNewInstance(title: String): SinglePostFragment {
             return SinglePostFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(EXTRA_TITLE, title)
+                    putString(EXTRA_TITLE, title)
                 }
             }
         }

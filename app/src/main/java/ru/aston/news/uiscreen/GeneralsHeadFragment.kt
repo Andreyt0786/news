@@ -21,7 +21,10 @@ import javax.inject.Inject
 class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
 
     private var binding: FragmentHeadGeneralBinding? = null
-    private val adapter = PostAdapter{}
+    private val adapter = PostAdapter { post ->
+        Log.d("GeneralFragment", "$post.author")
+        post.author?.let { presenter.navigate(it) }
+    }
 
     @Inject
     @InjectPresenter

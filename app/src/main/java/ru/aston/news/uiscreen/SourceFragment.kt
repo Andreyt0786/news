@@ -8,16 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.aston.news.App
-import ru.aston.news.App.Companion.router
 import ru.aston.news.adapter.sourcePost.InteractionListener
 import ru.aston.news.adapter.sourcePost.SourcePostAdapter
 import ru.aston.news.databinding.FragmentSourcesBinding
-import ru.aston.news.dto.RouterProvider
-import ru.aston.news.dto.Screens.ForwardCheckSource
 import ru.aston.news.dto.SourcePost
 import ru.aston.news.viewModel.SourcePostViewModel
 import javax.inject.Inject
@@ -34,7 +30,7 @@ class SourceFragment() : Fragment() {
 
         override fun showWall(sourcePost: SourcePost) {
               Log.d("SourceFragment", "ShowWall")
-            router.navigateTo(ForwardCheckSource(sourcePost.id, sourcePost.name))
+           viewModel.navigateToSourceFrag(sourcePost.id, sourcePost.name)
         }
     })
 

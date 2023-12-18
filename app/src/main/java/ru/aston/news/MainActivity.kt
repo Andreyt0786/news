@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import moxy.MvpAppCompatActivity
-import ru.aston.news.App.Companion.navigatorHolder
 import ru.aston.news.presenters.activityView.ActivityView
 import ru.aston.news.uiscreen.HeadLineFragment
 import ru.aston.news.uiscreen.SavedFragment
 import ru.aston.news.uiscreen.SourceFragment
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), ActivityView {
 
@@ -20,6 +21,9 @@ class MainActivity : MvpAppCompatActivity(), ActivityView {
         const val SAVED_TAG = "SAVED_TAG"
         const val SOURCES_TAG = "SOURCES_TAG"
     }
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
 
     private lateinit var bottomNavigationBar: BottomNavigationView
 

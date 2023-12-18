@@ -29,4 +29,6 @@ class GeneralRepositoryImpl @Inject constructor(
                 }
             }
 
+    override val singlePost: List<Post> = dao.getPost().map{it.toDto()}
+
 }

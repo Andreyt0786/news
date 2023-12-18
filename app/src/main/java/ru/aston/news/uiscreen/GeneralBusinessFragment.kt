@@ -93,10 +93,10 @@ import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.aston.news.App
-import ru.aston.news.adapter.post.OnInteractionListener
 import ru.aston.news.adapter.post.PostAdapter
 import ru.aston.news.databinding.FragmentHeadBusinessBinding
 import ru.aston.news.dto.Post
+import ru.aston.news.dto.Screens.ForwardSingleBusinessPost
 import ru.aston.news.presenters.headLine.HeadLinePresenterImpl
 import ru.aston.news.presenters.headLine.HeadLineView
 import javax.inject.Inject
@@ -104,7 +104,7 @@ import javax.inject.Inject
 class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
 
     private var binding: FragmentHeadBusinessBinding? = null
-    private val adapter = PostAdapter(object : OnInteractionListener {})
+
 
     @Inject
     @InjectPresenter
@@ -126,10 +126,13 @@ class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
         binding = FragmentHeadBusinessBinding.inflate(inflater, container, false)
         return binding?.root
     }
-
+    private val adapter = PostAdapter { post->
+        presenter.navigate(ForwardSingleBusinessPost(post.idPost))
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.getData()
+
         binding?.setupRecycler()
     }
 
@@ -140,6 +143,10 @@ class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
     override fun updateRecycler(posts: List<Post>) {
         Log.d("WARNING", "posts delivered" + posts.toString())
         adapter.submitList(posts)
+    }
+
+    override fun navigToPost(id:Int) {
+
     }
 
 }

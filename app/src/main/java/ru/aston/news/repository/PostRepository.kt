@@ -5,5 +5,6 @@ import ru.aston.news.dto.Post
 
 interface PostRepository {
 
+    val singlePost:List<Post>
     fun getPosts(): Single<List<Post>>
 }

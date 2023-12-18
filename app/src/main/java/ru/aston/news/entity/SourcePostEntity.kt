@@ -51,3 +51,5 @@ data class SourcePostEntity(
 
 fun List<SourcePostEntity>.toDto(): List<SourcePost> = map(SourcePostEntity::toDto)
 fun List<SourcePost>.toSourcePostEntity(): List<SourcePostEntity> = map(SourcePostEntity::fromDto)
+
+

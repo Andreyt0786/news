@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.reactivex.rxjava3.core.Single
 import ru.aston.news.entity.PostEntity
+import ru.aston.news.entity.headline.GeneralEntity
 
 @Dao
 interface PostDao {
@@ -18,4 +19,6 @@ interface PostDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(posts: List<PostEntity>)
 
+    @Query("SELECT * FROM PostEntity")
+    fun getPost(): List<PostEntity>
 }

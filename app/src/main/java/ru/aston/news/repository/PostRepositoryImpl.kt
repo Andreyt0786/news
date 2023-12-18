@@ -31,4 +31,7 @@ class PostRepositoryImpl @Inject constructor(
                     response.posts
                 }
             }
+
+    override val singlePost: List<Post> = dao.getPost().map{it.toDto()}
+
 }

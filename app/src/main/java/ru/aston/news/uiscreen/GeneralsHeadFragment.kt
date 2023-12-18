@@ -10,22 +10,18 @@ import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.aston.news.App
-import ru.aston.news.adapter.post.OnInteractionListener
 import ru.aston.news.adapter.post.PostAdapter
-import ru.aston.news.databinding.FragmentHeadBusinessBinding
 import ru.aston.news.databinding.FragmentHeadGeneralBinding
 import ru.aston.news.dto.Post
 import ru.aston.news.presenters.general.GeneralPresenter
 import ru.aston.news.presenters.general.GeneralView
-import ru.aston.news.presenters.headLine.HeadLinePresenterImpl
-import ru.aston.news.presenters.headLine.HeadLineView
 import javax.inject.Inject
 
 
 class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
 
     private var binding: FragmentHeadGeneralBinding? = null
-    private val adapter = PostAdapter(object : OnInteractionListener {})
+    private val adapter = PostAdapter{}
 
     @Inject
     @InjectPresenter

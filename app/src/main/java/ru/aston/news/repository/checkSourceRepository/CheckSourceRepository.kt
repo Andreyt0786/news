@@ -8,4 +8,6 @@ interface CheckSourceRepository {
 
     val dataPost :List<Post>
     suspend fun getSourcePost(source:String)
+
+    suspend fun add(post:Post)
 }

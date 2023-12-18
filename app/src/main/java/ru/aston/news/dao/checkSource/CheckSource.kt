@@ -20,4 +20,7 @@ interface CheckSourceDao {
 
     @Query("SELECT * FROM CheckSourceEntity")
     fun getPost(): List<CheckSourceEntity>
+
+    @Query("SELECT * FROM CheckSourceEntity WHERE idPost = id")
+    fun getSinglePost(): CheckSourceEntity
 }

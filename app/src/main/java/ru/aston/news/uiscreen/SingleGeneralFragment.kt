@@ -1,5 +1,7 @@
 package ru.aston.news.uiscreen
 
+
+
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -23,11 +25,12 @@ import ru.aston.news.R
 import ru.aston.news.databinding.FragmentSinglePostBinding
 import ru.aston.news.dto.Screens.BackCheckSource
 import ru.aston.news.viewModel.CheckSourceViewModel
+import ru.aston.news.viewModel.SingleGeneralViewModel
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-class SinglePostFragment : Fragment() {
+class SingleGeneralFragment : Fragment() {
 
     private var binding: FragmentSinglePostBinding? = null
 
@@ -36,7 +39,7 @@ class SinglePostFragment : Fragment() {
 
 
     @Inject
-    lateinit var viewModel: CheckSourceViewModel
+    lateinit var viewModel: SingleGeneralViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -58,7 +61,7 @@ class SinglePostFragment : Fragment() {
 
 
         Log.d("SourceFragment", "title")
-        val posts = viewModel.listPost
+        val posts = viewModel.posts
         Log.d("SourceFragment", "$posts")
         val post = posts.find { it.idPost == title }
         Log.d("SourceFragment", "$post")

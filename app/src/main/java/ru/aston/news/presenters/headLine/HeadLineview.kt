@@ -8,4 +8,6 @@ import ru.aston.news.dto.Post
 @StateStrategyType(value = AddToEndStrategy::class)
 interface HeadLineView : MvpView {
     fun updateRecycler(posts: List<Post>)
+
+    fun navigToPost(id:Int)
 }

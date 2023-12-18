@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import ru.aston.news.viewModel.CheckSourceViewModel
+import ru.aston.news.viewModel.SingleBusinessViewModel
+import ru.aston.news.viewModel.SingleGeneralViewModel
 import ru.aston.news.viewModel.SourcePostViewModel
 
 
@@ -17,4 +19,10 @@ interface ViewModelModule {
     @Binds
     fun bindsCheckSourceViewModel(viewModel: CheckSourceViewModel): ViewModel
 
+    @Binds
+    fun bindsSingleBusinessViewModel(viewModel: SingleBusinessViewModel): ViewModel
+
+
+    @Binds
+    fun bindsSingleGeneralViewModel(viewModel: SingleGeneralViewModel): ViewModel
 }

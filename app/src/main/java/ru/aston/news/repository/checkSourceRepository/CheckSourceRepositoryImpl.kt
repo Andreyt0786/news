@@ -31,4 +31,8 @@ class CheckSourceRepositoryImpl @Inject constructor(
     }
 
     override val dataPost: List<Post> = checkSourceDao.getPost().map{it.toDto()}
+
+    override suspend fun add(post:Post){
+        //TODO savedDao.insert(SavedEntity.fromDto(post))
+    }
 }

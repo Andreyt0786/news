@@ -127,7 +127,7 @@ class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
         return binding?.root
     }
     private val adapter = PostAdapter { post->
-        Log.d("BusinessFragment", "$post.author")
+        Log.d("BusinessFragment", "${post.author}")
         post.author?.let { presenter.navigate(it) }
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -6,6 +6,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
+import ru.aston.news.App.Companion.router
 import ru.aston.news.DisposableManager
 import ru.aston.news.dto.Screens.ForwardSingleBusinessPost
 import ru.aston.news.repository.PostRepository
@@ -17,8 +18,7 @@ class HeadLinePresenterImpl @Inject constructor(
 ) : MvpPresenter<HeadLineView>() {
     val TAG = HeadLinePresenterImpl::class.java.simpleName
 
-    @Inject
-    lateinit var router: Router
+
     fun navigate(id:String){
         router.navigateTo(ForwardSingleBusinessPost(id))
     }

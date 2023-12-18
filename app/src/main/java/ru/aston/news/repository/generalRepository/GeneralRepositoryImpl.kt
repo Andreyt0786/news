@@ -26,6 +26,7 @@ class GeneralRepositoryImpl @Inject constructor(
                 else {
                     dao.insertAll(response.posts.toGeneralEntity())
                     response.posts
+                    //dbData.toDto()
                 }
             }
 

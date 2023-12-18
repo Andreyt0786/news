@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
+import ru.aston.news.App.Companion.router
 import ru.aston.news.R
 import ru.aston.news.adapter.pager.NumberAdapter
 import ru.aston.news.databinding.FragmentHeadlinesBinding
+import ru.aston.news.dto.Screens.ForwardFilter
 
 class HeadLineFragment : Fragment() {
 
@@ -46,6 +48,18 @@ class HeadLineFragment : Fragment() {
             tab.text = fragitems[pos]
             tab.setIcon(fragmentPicture[pos])
         }.attach()
+
+
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.filter -> {
+                    router.navigateTo(ForwardFilter())
+                    true
+                }
+
+                else -> false
+            }
+        }
 
         return binding.root
     }

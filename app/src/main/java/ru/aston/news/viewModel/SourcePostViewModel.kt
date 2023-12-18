@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.terrakok.cicerone.Router
 import kotlinx.coroutines.launch
+import ru.aston.news.App.Companion.router
 import ru.aston.news.dto.Screens
 import ru.aston.news.dto.Screens.ForwardCheckSource
 import ru.aston.news.dto.SourcePost
@@ -15,8 +16,6 @@ class SourcePostViewModel @Inject constructor(
     private val repository: SourcePostRepository,
 ):ViewModel() {
 
-    @Inject
-    lateinit var router: Router
 
     val posts = repository.dataSourcePost
 

@@ -12,6 +12,7 @@ import ru.aston.news.di.repository.RepositoryModule
 import ru.aston.news.di.viewModel.ViewModelModule
 import ru.aston.news.uiscreen.BottomNavigationFragment
 import ru.aston.news.uiscreen.CheckSourceFragment
+import ru.aston.news.uiscreen.FilterFragment
 import ru.aston.news.uiscreen.GeneralBusinessFragment
 import ru.aston.news.uiscreen.GeneralsHeadFragment
 import ru.aston.news.uiscreen.SingleBusinessFragment
@@ -53,6 +54,8 @@ interface AppComponent {
     fun inject(fragment: SingleBusinessFragment)
 
     fun inject(fragment: SingleGeneralFragment)
+
+    fun inject(fragment: FilterFragment)
 }
 /*
     fun inject(activity: MainActivity)

@@ -8,6 +8,7 @@ import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import moxy.MvpAppCompatActivity
+import ru.aston.news.App.Companion.navigatorHolder
 import ru.aston.news.presenters.activityView.ActivityView
 import ru.aston.news.uiscreen.HeadLineFragment
 import ru.aston.news.uiscreen.SavedFragment
@@ -22,8 +23,7 @@ class MainActivity : MvpAppCompatActivity(), ActivityView {
         const val SOURCES_TAG = "SOURCES_TAG"
     }
 
-    @Inject
-    lateinit var navigatorHolder: NavigatorHolder
+
 
     private lateinit var bottomNavigationBar: BottomNavigationView
 

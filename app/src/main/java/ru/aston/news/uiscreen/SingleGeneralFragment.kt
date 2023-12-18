@@ -24,7 +24,6 @@ import ru.aston.news.App
 import ru.aston.news.R
 import ru.aston.news.databinding.FragmentSinglePostBinding
 import ru.aston.news.dto.Screens.BackCheckSource
-import ru.aston.news.viewModel.CheckSourceViewModel
 import ru.aston.news.viewModel.SingleGeneralViewModel
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -34,8 +33,8 @@ class SingleGeneralFragment : Fragment() {
 
     private var binding: FragmentSinglePostBinding? = null
 
-    private val title: String
-        get() = arguments?.getString(EXTRA_TITLE)!!
+    private val title: Int
+        get() = arguments?.getInt(EXTRA_TITLE)!!
 
 
     @Inject
@@ -60,10 +59,11 @@ class SingleGeneralFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+
         Log.d("GeneralFragment", "title = $title")
         val posts = viewModel.posts
         Log.d("GeneralFragment", "$posts")
-        val post = posts.find { it.author == title }
+        val post = posts.find { it.idPost == title }
         Log.d("GeneralFragment", "$post")
 
 
@@ -113,10 +113,10 @@ class SingleGeneralFragment : Fragment() {
     companion object {
         private const val EXTRA_TITLE = "extra_title"
 
-        fun getNewInstance(title: String): SinglePostFragment {
-            return SinglePostFragment().apply {
+        fun getNewInstance(title: Int): SingleGeneralFragment {
+            return SingleGeneralFragment().apply {
                 arguments = Bundle().apply {
-                    putString(EXTRA_TITLE, title)
+                    putInt(EXTRA_TITLE, title)
                 }
             }
         }

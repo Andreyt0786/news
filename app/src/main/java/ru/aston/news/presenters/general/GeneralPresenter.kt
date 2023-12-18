@@ -7,6 +7,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
+import ru.aston.news.App.Companion.router
 import ru.aston.news.DisposableManager
 import ru.aston.news.dto.Screens.ForwardSingleGeneralPost
 import ru.aston.news.repository.generalRepository.GeneralRepository
@@ -19,8 +20,7 @@ class GeneralPresenter @Inject constructor(
     private val generalRepository: GeneralRepository
 ):MvpPresenter<GeneralView>() {
 
-    @Inject
-    lateinit var router: Router
+
 
     val TAG = GeneralPresenter::class.java.simpleName
 
@@ -37,7 +37,8 @@ class GeneralPresenter @Inject constructor(
         )
     }
 
-    fun navigate(title:String){
+    fun navigate(title:Int){
        router.navigateTo(ForwardSingleGeneralPost(title))
+
     }
 }

@@ -1,19 +1,18 @@
+/*
 package ru.aston.news.repository.generalRepository
 
 import io.reactivex.rxjava3.core.Single
 import ru.aston.news.dao.general.GeneralDao
-import ru.aston.news.di.api.headLine.ApiGeneralService
 import ru.aston.news.dto.Post
 import ru.aston.news.dto.Response
 import ru.aston.news.entity.headline.toDto
 
 import ru.aston.news.entity.headline.toGeneralEntity
-import ru.aston.news.entity.toDto
 import javax.inject.Inject
 
 class GeneralRepositoryImpl @Inject constructor(
     private val apiService: ApiGeneralService,
-    private val dao:GeneralDao
+    private val generalDao:GeneralDao
 ):GeneralRepository {
 
 
@@ -33,3 +32,4 @@ class GeneralRepositoryImpl @Inject constructor(
     override val singlePost: List<Post> = dao.getPost().map{it.toDto()}
 
 }
+*/

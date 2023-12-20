@@ -29,7 +29,7 @@ class CheckSourceFragment() : Fragment() {
 
     private val adapter = PostAdapter { post ->
 
-            viewModel.navigate(ForwardSinglePost(post.idPost,title ))
+            viewModel.navigate(post.idPost,title )
         }
 
 

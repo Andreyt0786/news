@@ -19,12 +19,12 @@ class HeadLinePresenterImpl @Inject constructor(
     val TAG = HeadLinePresenterImpl::class.java.simpleName
 
 
-    fun navigate(id:String){
+    fun navigate(id:Int){
         router.navigateTo(ForwardSingleBusinessPost(id))
     }
     fun getData() {
         DisposableManager.add(
-            repository.getPosts()
+            repository.getBusinessPosts()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ response ->

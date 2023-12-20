@@ -78,7 +78,7 @@ class SinglePostFragment : Fragment() {
 
 
         binding?.toolbar?.setNavigationOnClickListener {
-            viewModel.navigate(ForwardCheckSource(prevesId,prevesId))
+            viewModel.navigatetoSource(prevesId,prevesId)
         }
 
         binding?.toolbar?.setOnMenuItemClickListener { menuItem ->

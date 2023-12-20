@@ -105,6 +105,10 @@ class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
 
     private var binding: FragmentHeadBusinessBinding? = null
 
+    private val adapter = PostAdapter { post ->
+        Log.d("BusinessFragment", "${post.idPost}")
+        presenter.navigate(post.idPost)
+    }
 
     @Inject
     @InjectPresenter
@@ -126,10 +130,7 @@ class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
         binding = FragmentHeadBusinessBinding.inflate(inflater, container, false)
         return binding?.root
     }
-    private val adapter = PostAdapter { post->
-        Log.d("BusinessFragment", "${post.author}")
-        post.author?.let { presenter.navigate(it) }
-    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.getData()

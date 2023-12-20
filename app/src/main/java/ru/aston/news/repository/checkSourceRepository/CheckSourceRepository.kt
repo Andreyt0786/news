@@ -1,3 +1,4 @@
+/*
 package ru.aston.news.repository.checkSourceRepository
 
 import kotlinx.coroutines.flow.Flow
@@ -11,3 +12,5 @@ interface CheckSourceRepository {
 
     suspend fun add(post:Post)
 }
+
+ */

@@ -10,8 +10,6 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.create
 import ru.aston.news.BuildConfig
 import ru.aston.news.di.api.headLine.ApiBusinessService
-import ru.aston.news.di.api.headLine.ApiGeneralService
-import ru.aston.news.di.api.source.ApiCheckSourceService
 import ru.aston.news.di.api.source.ApiSourceService
 import javax.inject.Singleton
 
@@ -68,12 +66,6 @@ class ApiModule {
         retrofit: Retrofit
     ): ApiBusinessService = retrofit.create()
 
-    @Singleton
-    @Provides
-    fun provideApiGeneralService(
-        retrofit: Retrofit
-    ): ApiGeneralService = retrofit.create()
-
 
     @Singleton
     @Provides
@@ -81,11 +73,7 @@ class ApiModule {
         retrofit: Retrofit
     ): ApiSourceService = retrofit.create()
 
-    @Singleton
-    @Provides
-    fun provideApiCheckSourceService(
-        retrofit: Retrofit
-    ): ApiCheckSourceService = retrofit.create()
+
 
 }
 

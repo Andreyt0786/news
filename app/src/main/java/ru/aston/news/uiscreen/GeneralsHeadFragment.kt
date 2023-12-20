@@ -10,6 +10,7 @@ import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.aston.news.App
+import ru.aston.news.App.Companion.router
 import ru.aston.news.R
 import ru.aston.news.adapter.post.PostAdapter
 import ru.aston.news.databinding.FragmentHeadGeneralBinding
@@ -21,12 +22,11 @@ import javax.inject.Inject
 
 
 class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
-    val bundle = Bundle()
+
     private var binding: FragmentHeadGeneralBinding? = null
     private val adapter = PostAdapter { post ->
         Log.d("GeneralFragment", "${post.idPost}")
-            App.router.navigateTo(Screens.ForwardSingleGeneralPost(1))
-
+        presenter.navigate(post.idPost)
     }
 
 

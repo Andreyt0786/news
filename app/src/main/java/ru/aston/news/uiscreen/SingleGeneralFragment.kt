@@ -33,8 +33,7 @@ class SingleGeneralFragment : Fragment() {
 
     private var binding: FragmentSinglePostBinding? = null
 
-    private val title: Int
-        get() = arguments?.getInt(EXTRA_TITLE)!!
+    private val title: Int? by lazy{arguments?.getInt(EXTRA_TITLE)}
 
 
     @Inject
@@ -67,7 +66,7 @@ class SingleGeneralFragment : Fragment() {
         Log.d("GeneralFragment", "$post")
 
 
-        Log.d("Fragment", "$title")
+        Log.d("GeneralFragment", "$title")
         val time = post?.publishedAt
         val actual = OffsetDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME)
         val formatter = DateTimeFormatter.ofPattern(" MMM, dd yyyy | HH:mm")

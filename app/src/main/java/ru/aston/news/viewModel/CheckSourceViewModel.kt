@@ -2,16 +2,17 @@ package ru.aston.news.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.terrakok.cicerone.Router
-import com.github.terrakok.cicerone.androidx.FragmentScreen
 import kotlinx.coroutines.launch
 import ru.aston.news.App.Companion.router
 import ru.aston.news.dto.Post
-import ru.aston.news.repository.checkSourceRepository.CheckSourceRepository
+import ru.aston.news.dto.Screens
+import ru.aston.news.dto.Screens.ForwardCheckSource
+import ru.aston.news.dto.Screens.ForwardSinglePost
+import ru.aston.news.repository.PostRepository
 import javax.inject.Inject
 
 class CheckSourceViewModel @Inject constructor(
-    private val repository: CheckSourceRepository,
+    private val repository: PostRepository,
 ) : ViewModel() {
 
 
@@ -23,12 +24,16 @@ class CheckSourceViewModel @Inject constructor(
         repository.getSourcePost(source)
     }
 
-    fun navigate(screen: FragmentScreen){
-        router.navigateTo(screen)
+    fun navigate(id: Int, title: String) {
+        router.navigateTo(ForwardSinglePost(id, title))
     }
 
-    fun like(post: Post){
-        viewModelScope.launch{
+    fun navigatetoSource(id:String, name:String){
+        router.navigateTo(ForwardCheckSource(id, name))
+    }
+
+    fun like(post: Post) {
+        viewModelScope.launch {
             repository.add(post)
         }
 

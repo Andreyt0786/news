@@ -11,4 +11,5 @@
     <dimen name="common_spacing20">20dp</dimen>
     <dimen name="common_spacing4">4dp</dimen>
     <dimen name="common_spacing15">15dp</dimen>
+    <dimen name="common_spacing36">36dp</dimen>
 </resources>

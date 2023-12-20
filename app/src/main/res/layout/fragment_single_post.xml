@@ -80,7 +80,7 @@
                     android:layout_marginTop="@dimen/common_spacing12"
                     android:layout_marginEnd="@dimen/common_spacing24"
                     android:lineSpacingExtra="5sp"
-                    android:maxLines="2"
+                    android:maxLines="4"
                     android:textSize="16sp"
                     tools:text="Americans are getting worried about the job market " />
 

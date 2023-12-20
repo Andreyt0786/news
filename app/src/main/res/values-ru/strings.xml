@@ -22,4 +22,9 @@
     <string name="checked">Готов</string>
     <string name="content_description_checked">Описание контента - Готово</string>
     <string name="source">Source</string>
+    <string name="english">English</string>
+    <string name="russian">Русский</string>
+    <string name="deutsch">Deutsch</string>
+    <string name="data">Data</string>
+    <string name="language">Language</string>
 </resources>

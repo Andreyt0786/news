@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topBar"
@@ -28,7 +29,8 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.button.MaterialButtonToggleGroup
-        android:layout_width="360dp"
+        android:id="@+id/toggleGroup"
+        android:layout_width="345dp"
         android:layout_height="@dimen/common_spacing48"
         android:layout_marginStart="16dp"
         android:layout_marginTop="@dimen/common_spacing16"
@@ -40,20 +42,20 @@
         >
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="120dp"
+            android:layout_width="115dp"
             android:layout_height="@dimen/common_spacing48"
             android:text = "@string/popular_post"
             style = "@style/Widget.Material3.Button.OutlinedButton"
             />
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="120dp"
+            android:layout_width="115dp"
             android:layout_height="@dimen/common_spacing48"
             android:text = "@string/new_post"
             style = "@style/Widget.Material3.Button.OutlinedButton"
             />
         <com.google.android.material.button.MaterialButton
-            android:layout_width="120dp"
+            android:layout_width="115dp"
             android:layout_height="@dimen/common_spacing48"
             android:text = "@string/relevant_post"
             style = "@style/Widget.Material3.Button.OutlinedButton"
@@ -64,4 +66,83 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
+
+
+    <TextView
+        android:id="@+id/data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing16"
+        android:layout_marginTop="@dimen/common_spacing36"
+        android:text="@string/data"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleGroup" />
+
+    <ImageView
+        android:id="@+id/tab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/common_spacing16"
+        android:contentDescription="@string/data"
+        android:src="@drawable/today_24px"
+        app:layout_constraintBottom_toBottomOf="@id/data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/data" />
+
+    <TextView
+        android:id="@+id/data_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/data"
+        app:layout_constraintEnd_toStartOf="@id/tab"
+        app:layout_constraintTop_toTopOf="@id/data"
+        tools:text="выбранная дата" />
+
+    <TextView
+        android:id="@+id/language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing16"
+        android:layout_marginTop="@dimen/common_spacing36"
+        android:text="@string/language"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/data" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing16"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/language"
+        app:singleLine="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/rus"
+            style="@style/Widget.MyApp.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/russian" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/us"
+            style="@style/Widget.MyApp.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/english" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/de"
+            style="@style/Widget.MyApp.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deutsch" />
+
+    </com.google.android.material.chip.ChipGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

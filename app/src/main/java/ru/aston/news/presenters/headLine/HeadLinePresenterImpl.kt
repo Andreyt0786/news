@@ -8,6 +8,7 @@ import moxy.InjectViewState
 import moxy.MvpPresenter
 import ru.aston.news.App.Companion.router
 import ru.aston.news.DisposableManager
+import ru.aston.news.dto.Screens.BackBusinessFragment
 import ru.aston.news.dto.Screens.ForwardSingleBusinessPost
 import ru.aston.news.repository.PostRepository
 import javax.inject.Inject
@@ -22,6 +23,7 @@ class HeadLinePresenterImpl @Inject constructor(
     fun navigate(id:Int){
         router.navigateTo(ForwardSingleBusinessPost(id))
     }
+
     fun getData() {
         DisposableManager.add(
             repository.getBusinessPosts()

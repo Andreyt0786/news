@@ -227,7 +227,7 @@ class SingleBusinessFragment : Fragment() {
 
 
         binding?.toolbar?.setNavigationOnClickListener {
-            viewModel.navigate(BackCheckSource())
+            viewModel.navigateBack()
         }
 
         binding?.toolbar?.setOnMenuItemClickListener { menuItem ->

@@ -42,6 +42,7 @@
         >
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/popular"
             android:layout_width="115dp"
             android:layout_height="@dimen/common_spacing48"
             android:text = "@string/popular_post"
@@ -49,12 +50,14 @@
             />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/newButton"
             android:layout_width="115dp"
             android:layout_height="@dimen/common_spacing48"
             android:text = "@string/new_post"
             style = "@style/Widget.Material3.Button.OutlinedButton"
             />
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/relevant"
             android:layout_width="115dp"
             android:layout_height="@dimen/common_spacing48"
             android:text = "@string/relevant_post"
@@ -111,38 +114,61 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/data" />
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup"
-        android:layout_width="match_parent"
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/common_spacing8"
         android:layout_marginStart="@dimen/common_spacing16"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/language"
-        app:singleLine="true"
-        app:singleSelection="true">
+        app:layout_constraintTop_toBottomOf="@id/language">
 
-        <com.google.android.material.chip.Chip
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/rus"
-            style="@style/Widget.MyApp.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/russian" />
+            android:layout_width="79dp"
+            android:layout_height="@dimen/common_spacing40"
+            android:text="@string/russian"
+            android:checked="false"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:button="@color/white"
+            android:background="@drawable/backchip"
+            android:gravity="center"
+           />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/us"
-            style="@style/Widget.MyApp.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/english" />
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/en"
+            android:layout_width="79dp"
+            android:layout_height="@dimen/common_spacing40"
+            android:text="@string/english"
+            android:checked="false"
+            android:textSize="14sp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:button="@color/white"
+            android:background="@drawable/backchip"
+            android:gravity="center"
+            />
 
-        <com.google.android.material.chip.Chip
+        <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/de"
-            style="@style/Widget.MyApp.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/deutsch" />
+            android:layout_width="79dp"
+            android:layout_height="@dimen/common_spacing40"
+            android:text="@string/deutsch"
+            android:checked="false"
+            android:layout_marginEnd="4dp"
+            android:textSize="14sp"
+            android:button="@color/white"
+            android:layout_weight="1"
+            android:background="@drawable/backchip"
+            android:gravity="center"
+            />
 
-    </com.google.android.material.chip.ChipGroup>
+
+
+
+</RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

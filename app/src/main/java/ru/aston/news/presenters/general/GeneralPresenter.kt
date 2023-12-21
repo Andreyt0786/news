@@ -17,13 +17,13 @@ class GeneralPresenter @Inject constructor(
     private val generalRepository: PostRepository
 ):MvpPresenter<GeneralView>() {
 
-
+    val state = generalRepository.filtersState
 
     val TAG = GeneralPresenter::class.java.simpleName
 
-    fun getData() {
+    fun getData(language:String?,sortBy:String?) {
         DisposableManager.add(
-            generalRepository.getGeneralPosts()
+            generalRepository.getGeneralPosts(language,sortBy)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ response ->

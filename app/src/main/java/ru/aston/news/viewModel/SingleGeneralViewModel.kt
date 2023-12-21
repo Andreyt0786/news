@@ -13,6 +13,7 @@ class SingleGeneralViewModel @Inject constructor(
     repository: PostRepository,
 ) : ViewModel() {
 
+val state = repository.filtersState
 
     val posts = repository.singleGeneralPost
 

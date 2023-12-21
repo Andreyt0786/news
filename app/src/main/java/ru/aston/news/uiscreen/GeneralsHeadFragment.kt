@@ -1,11 +1,13 @@
 package ru.aston.news.uiscreen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -51,9 +53,14 @@ class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
         return binding?.root
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.getData()
+        val state = presenter.state
+            Log.d("LiveData", "language = ${state.language}, relevant = ${state.relevant}")
+            presenter.getData(state.language,state.relevant)
+
+
         binding?.setupRecycler()
 
     }

@@ -18,7 +18,10 @@ interface ApiBusinessService {
 //General
     @GET("everything?q=general&apiKey=1f070c3add6f4e97a0babd69e1977be9")
     // fun getAll(@Query("sources") sources:String,): Single<Response>
-    fun getAllGeneral(): Single<Response>
+    fun getAllGeneral(
+    @Query("language") language:String?,
+    @Query("sortBy") sortBy:String?,
+): Single<Response>
 
 
 

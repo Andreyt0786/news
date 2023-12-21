@@ -1,8 +1,10 @@
 package ru.aston.news.repository
 
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import ru.aston.news.ApiError
@@ -10,6 +12,7 @@ import ru.aston.news.dao.PostDao
 import ru.aston.news.dao.checkSource.CheckSourceDao
 import ru.aston.news.dao.general.GeneralDao
 import ru.aston.news.di.api.headLine.ApiBusinessService
+import ru.aston.news.dto.Filters
 import ru.aston.news.dto.Post
 import ru.aston.news.dto.Response
 import ru.aston.news.entity.headline.toDto
@@ -27,6 +30,10 @@ class PostRepositoryImpl @Inject constructor(
     private val checkSourceDao: CheckSourceDao,
     private val generalDao: GeneralDao
 ) : PostRepository {
+
+    //liveData для запросов
+    //override val filterState: MutableLiveData<Filters> = MutableLiveData(Filters())
+
 
 
     //Business
@@ -46,8 +53,8 @@ class PostRepositoryImpl @Inject constructor(
 
     //General
 
-    override fun getGeneralPosts(): Single<List<Post>> =
-        apiService.getAllGeneral()
+    override fun getGeneralPosts(language: String?, sortBy: String?): Single<List<Post>> =
+        apiService.getAllGeneral(language, sortBy)
             .onErrorResumeNext { Single.just(Response()) }
             .map { it.posts ?: emptyList() }
             .flatMap { posts ->
@@ -81,5 +88,20 @@ class PostRepositoryImpl @Inject constructor(
         //TODO savedDao.insert(SavedEntity.fromDto(post))
     }
 
+    override fun saveRelevant(relevant: String?) {
+        filtersState = filtersState.copy(relevant = relevant)
 
+        /*Filters(
+        relevant = relevant,
+        language = null)*/
+    }
+
+    override fun saveLanguage(language: String?) {
+        filtersState = Filters(
+            relevant = filtersState.relevant,
+            language = language
+        )
+    }
+
+    override var filtersState = Filters(null, "ru")
 }

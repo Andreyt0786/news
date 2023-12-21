@@ -7,17 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.aston.news.App
-import ru.aston.news.App.Companion.router
-import ru.aston.news.R
 import ru.aston.news.adapter.post.PostAdapter
 import ru.aston.news.databinding.FragmentHeadGeneralBinding
 import ru.aston.news.dto.Post
-import ru.aston.news.dto.Screens
 import ru.aston.news.presenters.general.GeneralPresenter
 import ru.aston.news.presenters.general.GeneralView
 import javax.inject.Inject
@@ -31,7 +27,9 @@ class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
         presenter.navigate(post.idPost)
     }
 
-
+  /*  @Inject
+    lateinit var viewModel: FilterViewModel
+*/
     @Inject
     @InjectPresenter
     lateinit var presenter: GeneralPresenter
@@ -57,9 +55,11 @@ class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val state = presenter.state
+        presenter.getData(state.language, state.relevant)
+      /*  viewModel.stateFilters.observe(viewLifecycleOwner) { state ->
             Log.d("LiveData", "language = ${state.language}, relevant = ${state.relevant}")
-            presenter.getData(state.language,state.relevant)
-
+            presenter.getData(state.language, state.relevant)
+        }*/
 
         binding?.setupRecycler()
 

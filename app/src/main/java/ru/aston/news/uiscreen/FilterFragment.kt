@@ -1,5 +1,6 @@
 package ru.aston.news.uiscreen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -7,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.datepicker.MaterialDatePicker
 import ru.aston.news.App
 import ru.aston.news.R
 import ru.aston.news.databinding.FragmentFiltersBinding
 import ru.aston.news.dto.MainEvent
-import ru.aston.news.viewModel.CheckSourceViewModel
 import ru.aston.news.viewModel.FilterViewModel
+import java.util.Calendar
+import java.util.TimeZone
 import javax.inject.Inject
 
 class FilterFragment : Fragment() {
@@ -99,9 +102,40 @@ class FilterFragment : Fragment() {
             }
         }
 
+        binding?.tab?.setOnClickListener{
+            setupData()
+        }
+
+
 
 
 
         return binding?.root
     }
+    @SuppressLint("ResourceType")
+    fun setupData() = with(binding) {
+        val datePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText(getString(R.string.select_data))
+            //.setTheme(com.google.android.material.R.style.ThemeOverlay_Material3_MaterialCalendar)
+            .setTheme(R.style.ThemeOverlay_App_DatePicker)
+            .build()
+
+        binding?.tab?.setOnClickListener {
+            datePicker.show(childFragmentManager, null)
+        }
+
+        datePicker.addOnPositiveButtonClickListener { selection ->
+            val startCalendar = Calendar.getInstance(TimeZone.getDefault()).apply {
+                timeInMillis = selection.first
+            }
+            val endCalendar = Calendar.getInstance(TimeZone.getDefault()).apply {
+                timeInMillis = selection.second
+            }
+        //    filtersViewModel.onEvent(FiltersEvent.OnChosenDatesChanged(startCalendar to endCalendar))
+        }
+       // datePicker.addOnNegativeButtonClickListener {
+       //     filtersViewModel.onEvent(FiltersEvent.OnChosenDatesChanged(null))
+       // }
+    }
+
 }

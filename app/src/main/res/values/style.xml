@@ -15,7 +15,18 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
 
     </style>
+    <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
+        <item name="colorPrimary">@color/primary_60</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!--Calender Background color -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:selectableItemBackgroundBorderless">@color/primary_50</item>
 
+        
+        <item name="colorAccent">@color/primary_60</item>
+        <!-- Customize text field of the text input mode. -->
+
+    </style>
     <!-- Disabling elevation overlays because when chip's default background/surface
          composite are combined with elevation overlays in a highly elevated dialog,
          the resulting color becomes too light and causes contrast

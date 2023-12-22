@@ -21,6 +21,7 @@ data class GeneralEntity(
     val urlToImage: String?,
     val publishedAt: String,
     val content: String?,
+    val isLiked:Boolean,
 
     ) {
 
@@ -35,6 +36,7 @@ data class GeneralEntity(
         url = url,
         urlToImage = urlToImage,
         publishedAt = publishedAt,
+        isLiked = isLiked,
     )
 
     companion object {
@@ -50,6 +52,7 @@ data class GeneralEntity(
                 url = dto.url,
                 urlToImage = dto.urlToImage,
                 publishedAt = dto.publishedAt,
+                isLiked = dto.isLiked,
             )
 
     }

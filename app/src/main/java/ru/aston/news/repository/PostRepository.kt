@@ -43,4 +43,6 @@ interface PostRepository {
     val dataSavedPost: Flow<List<Post>>
 
     val singleSavedPost: List<Post>
+    suspend fun remove(post:Post)
+
 }

@@ -6,6 +6,7 @@ import kotlinx.coroutines.launch
 import ru.aston.news.App
 import ru.aston.news.dto.Post
 import ru.aston.news.dto.Screens
+import ru.aston.news.dto.Screens.ForwardSavedPost
 import ru.aston.news.repository.PostRepository
 import javax.inject.Inject
 
@@ -20,14 +21,18 @@ class SavedViewModel @Inject constructor(
 
 
     fun navigateBack() {
-        App.router.navigateTo(Screens.BackHeadlineFragment())
+        App.router.navigateTo(ForwardSavedPost())
     }
 
     fun navigate(title:Int){
         App.router.navigateTo(Screens.ForwardSingleSavedPost(title))
 
     }
-
+    fun remove(post:Post) {
+        viewModelScope.launch {
+            repository.remove(post)
+        }
+    }
     fun like(post: Post) {
         viewModelScope.launch {
             repository.add(post)

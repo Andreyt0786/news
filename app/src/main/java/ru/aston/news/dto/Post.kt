@@ -20,6 +20,7 @@ data class Post(
     val urlToImage:String?,
     val publishedAt:String,
     var content:String?,
+    var isLiked:Boolean,
 )
 data class Source(
     val id:String?,

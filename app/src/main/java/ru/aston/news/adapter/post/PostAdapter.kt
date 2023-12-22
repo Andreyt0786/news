@@ -146,6 +146,8 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             companyName.text = post.source.name
             text.text = post.title
 
+
+
             /*  if(post.source.id=="cnn")
               binding.avatar.setImageResource(R.mipmap.cnn)
               */

@@ -7,5 +7,6 @@
     <!-- fallback для всех остальных состояний -->
     <item
         android:drawable="@drawable/bookmark_border_24px"
+        android:state_checked="false"
         />
 </selector>

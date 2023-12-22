@@ -57,6 +57,10 @@ class CheckSourceFragment() : Fragment() {
                 adapter.submitList(it)
             }
         }
+
+        binding?.topAppBar?.setNavigationOnClickListener {
+            viewModel.navigateBacktoSource()
+        }
         binding?.setupRecycler()
     }
 

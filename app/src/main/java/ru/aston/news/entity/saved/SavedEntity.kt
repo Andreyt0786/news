@@ -20,6 +20,7 @@ data class SavedEntity(
     val urlToImage: String?,
     val publishedAt: String,
     val content: String?,
+    val isLiked:Boolean,
 
     ) {
 
@@ -34,6 +35,7 @@ data class SavedEntity(
         url = url,
         urlToImage = urlToImage,
         publishedAt = publishedAt,
+        isLiked = isLiked,
     )
 
     companion object {
@@ -49,8 +51,8 @@ data class SavedEntity(
                 url = dto.url,
                 urlToImage = dto.urlToImage,
                 publishedAt = dto.publishedAt,
+                isLiked = dto.isLiked,
             )
-
     }
 
 }

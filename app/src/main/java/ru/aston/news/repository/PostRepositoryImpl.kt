@@ -97,8 +97,9 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun add(post: Post) {
         savedDao.insert(SavedEntity.fromDto(post))
-
     }
+
+
 
     override fun saveRelevant(relevant: String?) {
         filtersState = filtersState.copy(relevant = relevant)
@@ -121,10 +122,6 @@ class PostRepositoryImpl @Inject constructor(
 
 
 
-
-
-
-
     //Saved
 
 
@@ -133,6 +130,8 @@ class PostRepositoryImpl @Inject constructor(
 
     override val singleSavedPost: List<Post> = savedDao.getSinglePost().map { it.toDto() }
 
-
+    override suspend fun remove(post:Post){
+        savedDao.clear(post.idSaved)
+    }
 
 }

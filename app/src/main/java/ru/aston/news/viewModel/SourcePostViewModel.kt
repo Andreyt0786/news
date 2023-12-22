@@ -28,5 +28,9 @@ class SourcePostViewModel @Inject constructor(
         router.navigateTo(ForwardCheckSource(id, name))
     }
 
+   fun refreshSource() = viewModelScope.launch{
+       repository.getSourcePost()
+   }
+
 
 }

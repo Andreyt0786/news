@@ -17,8 +17,6 @@ import ru.aston.news.viewModel.SavedViewModel
 import javax.inject.Inject
 
 class SavedFragment : Fragment() {
-    // @Inject
-    //lateinit var router: Router
 
     @Inject
     lateinit var viewModel: SavedViewModel
@@ -26,9 +24,8 @@ class SavedFragment : Fragment() {
     private var binding: FragmentSavedBinding? = null
     private val adapter = PostAdapter { post ->
         Log.d("SavedFragment", "${post.idSaved}")
-
+        viewModel.navigate(post.idSaved)
     }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

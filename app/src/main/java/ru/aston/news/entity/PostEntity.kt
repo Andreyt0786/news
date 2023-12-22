@@ -8,7 +8,7 @@ import ru.aston.news.dto.Source
 
 @Entity
 data class PostEntity(
-    val idSaved:Int,
+    val idSaved: Int,
     @PrimaryKey(autoGenerate = true)
     val idPost: Int,
     @Embedded
@@ -20,11 +20,12 @@ data class PostEntity(
     val urlToImage: String?,
     val publishedAt: String,
     val content: String?,
+    val isLiked: Boolean,
 
     ) {
 
     fun toDto() = Post(
-        idSaved= idSaved,
+        idSaved = idSaved,
         idPost = idPost.hashCode(),
         source = source,
         author = author,
@@ -34,6 +35,7 @@ data class PostEntity(
         url = url,
         urlToImage = urlToImage,
         publishedAt = publishedAt,
+        isLiked = isLiked,
     )
 
     companion object {
@@ -49,11 +51,11 @@ data class PostEntity(
                 url = dto.url,
                 urlToImage = dto.urlToImage,
                 publishedAt = dto.publishedAt,
+                isLiked = dto.isLiked
             )
-
     }
-
 }
+
 
 fun List<PostEntity>.toDto(): List<Post> = map(PostEntity::toDto)
 fun List<Post>.toEntity(): List<PostEntity> = map(PostEntity::fromDto)

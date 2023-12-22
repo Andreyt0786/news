@@ -58,6 +58,10 @@ class SourceFragment() : Fragment() {
                 adapter.submitList(it)
             }
         }
+
+        binding?.refreshView?.setOnRefreshListener {
+           viewModel.refreshSource()
+        }
         binding?.setupRecycler()
     }
 

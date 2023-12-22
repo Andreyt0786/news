@@ -22,7 +22,6 @@ import ru.aston.news.App
 import ru.aston.news.R
 import ru.aston.news.databinding.FragmentSinglePostBinding
 import ru.aston.news.viewModel.SavedViewModel
-import ru.aston.news.viewModel.SingleGeneralViewModel
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -78,10 +77,20 @@ class SingleSavedFragment : Fragment() {
             viewModel.navigateBack()
         }
 
+
         binding?.toolbar?.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.checked -> {
-                    viewModel.like(post)
+                   /* if(!post.isLiked) {
+                        viewModel.like(post)
+                        post.isLiked = true
+                    } else {
+                        viewModel.remove(post)
+                        post.isLiked = false
+                    }*/
+                    viewModel.remove(post)
+
+
                     true
                 }
 
@@ -96,6 +105,7 @@ class SingleSavedFragment : Fragment() {
             data.text = formatDateTime
 
 
+
             if (post.urlToImage.isNullOrEmpty()) {
                 binding!!.thumbnail.setImageResource(R.mipmap.noimageavailable)
             } else {
@@ -108,11 +118,13 @@ class SingleSavedFragment : Fragment() {
         }
     }
 
-    companion object {
+
+
+        companion object {
         private const val EXTRA_TITLE = "extra_title"
 
-        fun getNewInstance(title: Int): SingleGeneralFragment {
-            return SingleGeneralFragment().apply {
+        fun getNewInstance(title: Int): SingleSavedFragment {
+            return SingleSavedFragment().apply {
                 arguments = Bundle().apply {
                     putInt(EXTRA_TITLE, title)
                 }

@@ -25,12 +25,19 @@ interface SavedDao {
     fun getSavedAll(): Flow<List<SavedEntity>>
 
 
-    @Query("DELETE FROM SavedEntity")
-    suspend fun clear()
-
-
     @Query("SELECT * FROM SavedEntity")
     fun getSinglePost(): List<SavedEntity>
 
+    @Query("DELETE FROM SavedEntity  WHERE idSaved = :idSaved")
+    suspend fun clear(idSaved: Int)
+
+    @Query(
+        """
+        UPDATE SavedEntity SET
+        isLiked = CASE WHEN isLiked THEN 0 ELSE 1 END
+        WHERE idSaved = :idSaved
+        """
+    )
+    suspend fun likeById(idSaved: Int)
 
 }

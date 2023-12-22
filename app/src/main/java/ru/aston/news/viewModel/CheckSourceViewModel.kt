@@ -6,6 +6,7 @@ import kotlinx.coroutines.launch
 import ru.aston.news.App.Companion.router
 import ru.aston.news.dto.Post
 import ru.aston.news.dto.Screens
+import ru.aston.news.dto.Screens.BackHeadlineFragment
 import ru.aston.news.dto.Screens.ForwardCheckSource
 import ru.aston.news.dto.Screens.ForwardSinglePost
 import ru.aston.news.repository.PostRepository
@@ -28,6 +29,9 @@ class CheckSourceViewModel @Inject constructor(
         router.navigateTo(ForwardSinglePost(id, title))
     }
 
+    fun navigateBacktoSource(){
+        router.navigateTo(BackHeadlineFragment())
+    }
     fun navigatetoSource(id:String, name:String){
         router.navigateTo(ForwardCheckSource(id, name))
     }

@@ -1,7 +1,4 @@
-package ru.aston.news.entity.source
-
-
-
+package ru.aston.news.entity.saved
 
 import androidx.room.Embedded
 import androidx.room.Entity
@@ -9,11 +6,10 @@ import androidx.room.PrimaryKey
 import ru.aston.news.dto.Post
 import ru.aston.news.dto.Source
 
-
 @Entity
-data class CheckSourceEntity(
-    val idSaved:Int,
+data class SavedEntity(
     @PrimaryKey(autoGenerate = true)
+    val idSaved:Int,
     val idPost: Int,
     @Embedded
     val source: Source,
@@ -42,7 +38,7 @@ data class CheckSourceEntity(
 
     companion object {
         fun fromDto(dto: Post) =
-            CheckSourceEntity(
+            SavedEntity(
                 idSaved = dto.idSaved,
                 idPost = dto.idPost,
                 source = dto.source,
@@ -59,5 +55,6 @@ data class CheckSourceEntity(
 
 }
 
-fun List<CheckSourceEntity>.toDto(): List<Post> = map(CheckSourceEntity::toDto)
-fun List<Post>.toCheckSourceEntity(): List<CheckSourceEntity> = map(CheckSourceEntity.Companion::fromDto)
+    fun List<SavedEntity>.toDto(): List<Post> = map(SavedEntity::toDto)
+    fun List<Post>.toSavedEntity(): List<SavedEntity> = map(SavedEntity.Companion::fromDto)
+

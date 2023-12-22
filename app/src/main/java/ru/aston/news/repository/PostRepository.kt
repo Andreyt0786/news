@@ -34,4 +34,13 @@ interface PostRepository {
    fun saveRelevant(relevant:String?)
 
     fun saveLanguage(language:String?)
+
+
+
+
+    //Saved
+
+    val dataSavedPost: Flow<List<Post>>
+
+    val singleSavedPost: List<Post>
 }

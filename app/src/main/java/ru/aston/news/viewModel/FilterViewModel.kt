@@ -14,19 +14,21 @@ class FilterViewModel @Inject constructor(
     private val repository: PostRepository,
 ) : ViewModel() {
 
-  /*  private val _state = MutableLiveData(Filters())
-    val stateFilters: LiveData<Filters>
-        get() = _state*/
+   private val _stateLanguage = MutableLiveData<String?>()
+    val stateLanguage: LiveData<String?>
+        get() = _stateLanguage
 
 
     fun send(event: MainEvent) {
         when (event) {
             is MainEvent.SaveRelevant -> {
                 saveRelev(relevant = event.relevant)
+
             }
 
             is MainEvent.SaveLanguage -> {
                 saveLan(lan = event.language)
+
             }
         }
     }
@@ -40,9 +42,10 @@ class FilterViewModel @Inject constructor(
        // _state.value = Filters(relevant = relevant, language = _state.value!!.language)
     }
 
-    private fun saveLan(lan: String?) {
+    fun saveLan(lan: String?) {
         repository.saveLanguage(lan)
        // _state.value = Filters(relevant = _state.value!!.relevant, language = lan)
+        _stateLanguage.value = lan
     }
 }
 

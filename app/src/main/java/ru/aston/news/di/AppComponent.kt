@@ -15,9 +15,11 @@ import ru.aston.news.uiscreen.CheckSourceFragment
 import ru.aston.news.uiscreen.FilterFragment
 import ru.aston.news.uiscreen.GeneralBusinessFragment
 import ru.aston.news.uiscreen.GeneralsHeadFragment
+import ru.aston.news.uiscreen.SavedFragment
 import ru.aston.news.uiscreen.SingleBusinessFragment
 import ru.aston.news.uiscreen.SingleGeneralFragment
 import ru.aston.news.uiscreen.SinglePostFragment
+import ru.aston.news.uiscreen.SingleSavedFragment
 import ru.aston.news.uiscreen.SourceFragment
 import javax.inject.Singleton
 
@@ -56,6 +58,10 @@ interface AppComponent {
     fun inject(fragment: SingleGeneralFragment)
 
     fun inject(fragment: FilterFragment)
+
+    fun inject(fragment: SavedFragment)
+
+    fun inject(fragment: SingleSavedFragment)
 }
 /*
     fun inject(activity: MainActivity)

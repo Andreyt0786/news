@@ -10,22 +10,20 @@ import ru.aston.news.repository.PostRepository
 import javax.inject.Inject
 
 class SingleBusinessViewModel @Inject constructor(
-   repository: PostRepository,
+    private val repository: PostRepository,
 ) : ViewModel() {
 
 
     val posts = repository.singleBusinessPost
 
 
-
-    fun navigateBack(){
-        router.navigateTo(BackHeadlineFragment() )
+    fun navigateBack() {
+        router.navigateTo(BackHeadlineFragment())
     }
 
     fun like(post: Post) {
         viewModelScope.launch {
-            //  repository.add(post)
+            repository.add(post)
         }
-
     }
 }

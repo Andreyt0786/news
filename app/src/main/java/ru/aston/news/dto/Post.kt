@@ -10,6 +10,7 @@ data class Response(
 
 
 data class Post(
+    val idSaved:Int,
     val idPost:Int,
     val source :Source,
     val author: String?,

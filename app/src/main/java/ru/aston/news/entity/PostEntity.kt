@@ -8,6 +8,7 @@ import ru.aston.news.dto.Source
 
 @Entity
 data class PostEntity(
+    val idSaved:Int,
     @PrimaryKey(autoGenerate = true)
     val idPost: Int,
     @Embedded
@@ -23,6 +24,7 @@ data class PostEntity(
     ) {
 
     fun toDto() = Post(
+        idSaved= idSaved,
         idPost = idPost.hashCode(),
         source = source,
         author = author,
@@ -37,6 +39,7 @@ data class PostEntity(
     companion object {
         fun fromDto(dto: Post) =
             PostEntity(
+                idSaved = dto.idSaved,
                 idPost = dto.idPost,
                 source = dto.source,
                 author = dto.author,

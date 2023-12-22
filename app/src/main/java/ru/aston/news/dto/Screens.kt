@@ -10,6 +10,7 @@ import ru.aston.news.uiscreen.HeadLineFragment
 import ru.aston.news.uiscreen.SingleBusinessFragment
 import ru.aston.news.uiscreen.SingleGeneralFragment
 import ru.aston.news.uiscreen.SinglePostFragment
+import ru.aston.news.uiscreen.SingleSavedFragment
 
 object Screens : Screen {
     fun BottomNavigation() = FragmentScreen {
@@ -40,13 +41,14 @@ object Screens : Screen {
         FilterFragment()
     }
 
-    fun BackBusinessFragment() = FragmentScreen {
-        GeneralsHeadFragment()
-    }
-
-
     fun BackHeadlineFragment() = FragmentScreen {
         HeadLineFragment()
     }
+
+
+    fun ForwardSingleSavedPost(title: Int) = FragmentScreen {
+        SingleSavedFragment.getNewInstance(title)
+    }
+
 
 }

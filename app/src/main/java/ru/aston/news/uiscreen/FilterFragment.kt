@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.google.android.material.datepicker.MaterialDatePicker
 import ru.aston.news.App
 import ru.aston.news.R
@@ -38,57 +39,62 @@ class FilterFragment : Fragment() {
     ): View? {
         binding = FragmentFiltersBinding.inflate(inflater, container, false)
 
+
+
         binding?.topAppBar?.setNavigationOnClickListener {
             viewModel.navigateBack()
         }
 
 
-                    binding!!.toggleGroup.addOnButtonCheckedListener { toggleButton, checkId, isChecked ->
+        binding!!.toggleGroup.addOnButtonCheckedListener { toggleButton, checkId, isChecked ->
 
-                        if (isChecked) {
-                            when (checkId) {
-                                R.id.popular -> {
-                                    viewModel.send(MainEvent.SaveRelevant("popularity"))
-                                    Log.d("LiveData", "relevancy")
-                                }
-
-                                R.id.newButton -> {
-                                    viewModel.send(MainEvent.SaveRelevant("publishedAt"))
-                                    Log.d("LiveData", "new")
-                                }
-
-                                R.id.relevant -> {
-                                    viewModel.send(MainEvent.SaveRelevant("relevant"))
-                                    Log.d("LiveData", "relevancy")
-                                }
-                            }
-                        }
+            if (isChecked) {
+                when (checkId) {
+                    R.id.popular -> {
+                        viewModel.send(MainEvent.SaveRelevant("popularity"))
+                        Log.d("LiveData", "popularity")
                     }
 
-                    binding!!.radioGroup.setOnCheckedChangeListener { group, checkedId ->
-
-                        when (checkedId) {
-                            R.id.rus -> {
-                                viewModel.send(MainEvent.SaveLanguage("ru"))
-                                Log.d("LiveData", "rus")
-                            }
-
-                            R.id.en -> {
-                                viewModel.send(MainEvent.SaveLanguage("us"))
-                                Log.d("LiveData", "us")
-                            }
-
-                            R.id.de -> {
-                                viewModel.send(MainEvent.SaveLanguage("de"))
-                                Log.d("LiveData", "de")
-                            }
-
-                            else -> {
-                                viewModel.send(MainEvent.SaveLanguage(null))
-                                Log.d("LiveData", "null")
-                            }
-                        }
+                    R.id.newButton -> {
+                        viewModel.send(MainEvent.SaveRelevant("publishedAt"))
+                        Log.d("LiveData", "new")
                     }
+
+                    R.id.relevant -> {
+                        viewModel.send(MainEvent.SaveRelevant("relevant"))
+                        Log.d("LiveData", "relevancy")
+                    }
+                }
+            }
+        }
+
+        binding!!.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+
+            when (checkedId) {
+                R.id.rus -> {
+                    viewModel.send(MainEvent.SaveLanguage("ru"))
+                    Log.d("LiveData", "rus")
+                    viewModel.saveLan("ru")
+                }
+
+                R.id.en -> {
+                    viewModel.send(MainEvent.SaveLanguage("us"))
+                    Log.d("LiveData", "us")
+                    viewModel.saveLan("us")
+                }
+
+                R.id.de -> {
+                    viewModel.send(MainEvent.SaveLanguage("de"))
+                    Log.d("LiveData", "de")
+                    viewModel.saveLan("de")
+                }
+
+                else -> {
+                    viewModel.send(MainEvent.SaveLanguage(null))
+                    Log.d("LiveData", "null")
+                }
+            }
+        }
 
         binding?.topAppBar?.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -102,16 +108,29 @@ class FilterFragment : Fragment() {
             }
         }
 
-        binding?.tab?.setOnClickListener{
+        binding?.tab?.setOnClickListener {
             setupData()
         }
 
 
+        viewModel.stateLanguage.observe(viewLifecycleOwner, Observer {  state ->
+            updateLanguagePosition(state)
+        })
 
 
 
         return binding?.root
     }
+
+    private fun updateLanguagePosition(position: String?) {
+        when (position) {
+
+            "ru" -> binding!!.radioGroup.check(R.id.rus)
+            "us" -> binding!!.radioGroup.check(R.id.en)
+            "de" -> binding!!.radioGroup.check(R.id.de)
+        }
+    }
+
     @SuppressLint("ResourceType")
     fun setupData() = with(binding) {
         val datePicker = MaterialDatePicker.Builder.dateRangePicker()
@@ -131,11 +150,11 @@ class FilterFragment : Fragment() {
             val endCalendar = Calendar.getInstance(TimeZone.getDefault()).apply {
                 timeInMillis = selection.second
             }
-        //    filtersViewModel.onEvent(FiltersEvent.OnChosenDatesChanged(startCalendar to endCalendar))
+            //    filtersViewModel.onEvent(FiltersEvent.OnChosenDatesChanged(startCalendar to endCalendar))
         }
-       // datePicker.addOnNegativeButtonClickListener {
-       //     filtersViewModel.onEvent(FiltersEvent.OnChosenDatesChanged(null))
-       // }
+        // datePicker.addOnNegativeButtonClickListener {
+        //     filtersViewModel.onEvent(FiltersEvent.OnChosenDatesChanged(null))
+        // }
     }
 
 }

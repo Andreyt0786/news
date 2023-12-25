@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import moxy.MvpAppCompatFragment
 import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
@@ -52,10 +53,10 @@ class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val filters = presenter.getFilters()
-        presenter.getData(filters.language, filters.relevant,filters.dateFrom,filters.dateTo)
+        presenter.getData(filters.language, filters.relevant, filters.dateFrom, filters.dateTo)
 
         binding?.refreshView?.setOnRefreshListener {
-            presenter.getData(filters.language, filters.relevant,filters.dateFrom,filters.dateTo)
+            presenter.getData(filters.language, filters.relevant, filters.dateFrom, filters.dateTo)
         }
         binding?.setupRecycler()
     }
@@ -68,6 +69,17 @@ class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
         Log.d("WARNING", "posts delivered" + posts.toString())
         adapter.submitList(posts)
         binding?.refreshView?.isRefreshing = false
+        binding?.progress?.isVisible = false
+    }
+
+    override fun showProgress() {
+        binding?.progress?.isVisible = true
+       // binding?.meditator?.isVisible = false
+        binding?.refreshView?.isRefreshing = false
+    }
+
+    override fun error() {
+       // binding?.meditator?.isVisible = true
     }
 }
 

@@ -39,6 +39,9 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:menu="@menu/menu_saved"
+                app:titleTextColor="@color/white"
+                app:title="@string/saved"
+                tools:title = "@string/saved"
                 app:navigationIcon="@drawable/arrow_back_24px"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
 

@@ -14,7 +14,7 @@ interface RepositoryModule {
 
     //binds связывает интерфейс и реализацию
     @Binds
-    @Singleton
+
     fun bindsPostRepository(impl: PostRepositoryImpl): PostRepository
 
     @Binds

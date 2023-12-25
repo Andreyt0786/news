@@ -28,7 +28,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInput"
-            android:layout_width="340dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText

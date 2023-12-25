@@ -5,6 +5,7 @@ import dagger.Binds
 import dagger.Module
 import ru.aston.news.viewModel.CheckSourceViewModel
 import ru.aston.news.viewModel.SavedViewModel
+import ru.aston.news.viewModel.SearchViewModel
 import ru.aston.news.viewModel.SingleBusinessViewModel
 import ru.aston.news.viewModel.SingleGeneralViewModel
 import ru.aston.news.viewModel.SourcePostViewModel
@@ -29,5 +30,8 @@ interface ViewModelModule {
 
     @Binds
     fun bindsSavedViewModel(viewModel: SavedViewModel): ViewModel
+
+    @Binds
+    fun bindsSearchViewModel(viewModel: SearchViewModel): ViewModel
 
 }

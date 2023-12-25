@@ -15,7 +15,9 @@ import ru.aston.news.R
 import ru.aston.news.databinding.FragmentFiltersBinding
 import ru.aston.news.dto.MainEvent
 import ru.aston.news.viewModel.FilterViewModel
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 import java.util.TimeZone
 import javax.inject.Inject
 
@@ -78,9 +80,9 @@ class FilterFragment : Fragment() {
                 }
 
                 R.id.en -> {
-                    viewModel.send(MainEvent.SaveLanguage("us"))
-                    Log.d("LiveData", "us")
-                    viewModel.saveLan("us")
+                    viewModel.send(MainEvent.SaveLanguage("en"))
+                    Log.d("LiveData", "en")
+                    viewModel.saveLan("en")
                 }
 
                 R.id.de -> {
@@ -108,14 +110,26 @@ class FilterFragment : Fragment() {
             }
         }
 
-        binding?.tab?.setOnClickListener {
-            setupData()
+        setupData()
+
+
+
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            updateLanguagePosition(state?.language)
+
         }
-
-
-        viewModel.stateLanguage.observe(viewLifecycleOwner, Observer {  state ->
-            updateLanguagePosition(state)
-        })
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            updateRelevantPosition(state?.relevant)
+        }
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            if (!state?.dateFrom.isNullOrEmpty()) {
+                binding!!.tab.visibility = View.GONE
+                binding!!.istab.visibility = View.VISIBLE
+            } else {
+                binding!!.istab.visibility = View.GONE
+                binding!!.tab.visibility = View.VISIBLE
+            }
+        }
 
 
 
@@ -126,12 +140,19 @@ class FilterFragment : Fragment() {
         when (position) {
 
             "ru" -> binding!!.radioGroup.check(R.id.rus)
-            "us" -> binding!!.radioGroup.check(R.id.en)
+            "en" -> binding!!.radioGroup.check(R.id.en)
             "de" -> binding!!.radioGroup.check(R.id.de)
         }
     }
 
-    @SuppressLint("ResourceType")
+    private fun updateRelevantPosition(position: String?) {
+        when (position) {
+            "popularity" -> binding!!.toggleGroup.check(R.id.popular)
+            "publishedAt" -> binding!!.toggleGroup.check(R.id.newButton)
+            "relevant" -> binding!!.toggleGroup.check(R.id.relevant)
+        }
+    }
+
     fun setupData() = with(binding) {
         val datePicker = MaterialDatePicker.Builder.dateRangePicker()
             .setTitleText(getString(R.string.select_data))
@@ -142,19 +163,30 @@ class FilterFragment : Fragment() {
         binding?.tab?.setOnClickListener {
             datePicker.show(childFragmentManager, null)
         }
+        binding?.istab?.setOnClickListener {
+            datePicker.show(childFragmentManager, null)
+        }
 
         datePicker.addOnPositiveButtonClickListener { selection ->
             val startCalendar = Calendar.getInstance(TimeZone.getDefault()).apply {
                 timeInMillis = selection.first
+
             }
+            val myFormat = SimpleDateFormat("yyyy-MM-dd")
+            val start = myFormat.format(startCalendar.getTime())
             val endCalendar = Calendar.getInstance(TimeZone.getDefault()).apply {
                 timeInMillis = selection.second
             }
-            //    filtersViewModel.onEvent(FiltersEvent.OnChosenDatesChanged(startCalendar to endCalendar))
+            val end = myFormat.format(endCalendar.getTime())
+
+            viewModel.send(
+                MainEvent.SaveTime(start, end)
+            )
+            Log.d("LiveData", "$start")
         }
+
         // datePicker.addOnNegativeButtonClickListener {
         //     filtersViewModel.onEvent(FiltersEvent.OnChosenDatesChanged(null))
         // }
     }
-
 }

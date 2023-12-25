@@ -28,5 +28,6 @@
     <string name="data">Data</string>
     <string name="language">Language</string>
     <string name="select_data">Select data</string>
+    <string name="back">Кнопка назад</string>
 
 </resources>

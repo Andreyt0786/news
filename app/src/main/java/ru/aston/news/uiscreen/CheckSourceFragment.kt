@@ -23,15 +23,16 @@ class CheckSourceFragment() : Fragment() {
 
     private var binding: FragmentCheckPostBinding? = null
 
+    private val titleApBar: String? by lazy { arguments?.getString(EXTRA_NAME) }
+
     private val title: String
         get() = arguments?.getString(CheckSourceFragment.EXTRA_ID)!!
 
 
     private val adapter = PostAdapter { post ->
 
-            viewModel.navigate(post.idPost,title )
-        }
-
+        viewModel.navigate(post.idPost, title)
+    }
 
 
     override fun onAttach(context: Context) {
@@ -58,6 +59,7 @@ class CheckSourceFragment() : Fragment() {
             }
         }
 
+        binding?.toolbarTitle?.text = titleApBar
         binding?.topAppBar?.setNavigationOnClickListener {
             viewModel.navigateBacktoSource()
         }

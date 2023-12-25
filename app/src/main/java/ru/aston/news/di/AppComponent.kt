@@ -15,7 +15,9 @@ import ru.aston.news.uiscreen.CheckSourceFragment
 import ru.aston.news.uiscreen.FilterFragment
 import ru.aston.news.uiscreen.GeneralBusinessFragment
 import ru.aston.news.uiscreen.GeneralsHeadFragment
+import ru.aston.news.uiscreen.HeadLineFragment
 import ru.aston.news.uiscreen.SavedFragment
+import ru.aston.news.uiscreen.SearchFragment
 import ru.aston.news.uiscreen.SingleBusinessFragment
 import ru.aston.news.uiscreen.SingleGeneralFragment
 import ru.aston.news.uiscreen.SinglePostFragment
@@ -49,9 +51,9 @@ interface AppComponent {
 
     fun inject(fragment: SourceFragment)
 
-    fun inject(fragment:CheckSourceFragment)
+    fun inject(fragment: CheckSourceFragment)
 
-    fun inject(fragment:SinglePostFragment)
+    fun inject(fragment: SinglePostFragment)
 
     fun inject(fragment: SingleBusinessFragment)
 
@@ -62,26 +64,9 @@ interface AppComponent {
     fun inject(fragment: SavedFragment)
 
     fun inject(fragment: SingleSavedFragment)
-}
-/*
-    fun inject(activity: MainActivity)
 
-    fun inject(fragment: SampleFragment)
+    fun inject(fragment: HeadLineFragment)
 
-    fun inject(activity: BottomNavigationActivity)
-
-    fun inject(fragment: TabContainerFragment)
-
-    fun inject(fragment: ProfileFragment)
-
-    fun inject(fragment: SelectPhotoFragment)
-
-    fun inject(activity: ProfileActivity)
-
-    fun inject(fragment: SemiTransparentFragment)
-
-
+    fun inject(fragment: SearchFragment)
 }
 
-
-     */

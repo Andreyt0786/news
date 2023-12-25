@@ -15,15 +15,21 @@ class SingleBusinessViewModel @Inject constructor(
 
 
     val posts = repository.singleBusinessPost
-
+fun onSetArgs(postId:Int) = repository.getPostById(postId)
 
     fun navigateBack() {
-        router.navigateTo(BackHeadlineFragment())
+        router.exit()
     }
 
     fun like(post: Post) {
         viewModelScope.launch {
             repository.add(post)
+        }
+    }
+
+    fun remove(post: Post) {
+        viewModelScope.launch {
+            repository.remove(post)
         }
     }
 }

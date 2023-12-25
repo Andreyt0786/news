@@ -3,10 +3,9 @@ package ru.aston.news.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.aston.news.App
+import ru.aston.news.App.Companion.router
 import ru.aston.news.dto.Filters
 import ru.aston.news.dto.MainEvent
-import ru.aston.news.dto.Screens
 import ru.aston.news.repository.PostRepository
 import javax.inject.Inject
 
@@ -14,9 +13,9 @@ class FilterViewModel @Inject constructor(
     private val repository: PostRepository,
 ) : ViewModel() {
 
-   private val _stateLanguage = MutableLiveData<String?>()
-    val stateLanguage: LiveData<String?>
-        get() = _stateLanguage
+    private val _state = MutableLiveData(repository.getFilters())
+    val state: LiveData<Filters?>
+        get() = _state
 
 
     fun send(event: MainEvent) {
@@ -30,22 +29,31 @@ class FilterViewModel @Inject constructor(
                 saveLan(lan = event.language)
 
             }
+
+            is MainEvent.SaveTime -> {
+                saveData(startData = event.startTime, toData = event.endTime)
+            }
         }
     }
 
-    fun navigateBack(){
-        App.router.navigateTo(Screens.BackHeadlineFragment())
+    fun navigateBack() {
+        router.exit()
     }
 
     private fun saveRelev(relevant: String?) {
         repository.saveRelevant(relevant)
-       // _state.value = Filters(relevant = relevant, language = _state.value!!.language)
+        _state.value = _state.value?.copy(relevant = relevant)
     }
 
     fun saveLan(lan: String?) {
         repository.saveLanguage(lan)
-       // _state.value = Filters(relevant = _state.value!!.relevant, language = lan)
-        _stateLanguage.value = lan
+        _state.value = _state.value?.copy(language = lan)
+
+    }
+
+    fun saveData(startData: String?, toData: String?) {
+        repository.saveData(startData, toData)
+        _state.value = _state.value?.copy(dateFrom = startData, dateTo = toData)
     }
 }
 

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Theme.News" parent="Theme.Material3.DayNight">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
         <item name="android:statusBarColor">@color/primary_60</item>
         <item name="colorPrimary">@color/primary_60</item>
         <item name="colorAccent">@color/primary_50</item>
@@ -15,15 +17,20 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
 
     </style>
-    <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
+
+    <style name="ThemeOverlay.App.DatePicker" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <item name="colorAccent">#FFFBFE</item>
         <item name="colorPrimary">@color/primary_60</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorControlActivated">#00677C</item>
+
+
         <!--Calender Background color -->
         <item name="android:windowBackground">@color/white</item>
         <item name="android:selectableItemBackgroundBorderless">@color/primary_50</item>
+        <item name="rangeFillColor">@color/primary_50</item>
 
-
-        <item name="colorAccent">@color/primary_60</item>
         <!-- Customize text field of the text input mode. -->
 
     </style>
@@ -170,4 +177,4 @@
         <item name="android:typeface">@font/roboto</item>
     </style>
 
-    </resources>
+</resources>

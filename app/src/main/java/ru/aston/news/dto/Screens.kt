@@ -8,6 +8,7 @@ import ru.aston.news.uiscreen.FilterFragment
 import ru.aston.news.uiscreen.GeneralsHeadFragment
 import ru.aston.news.uiscreen.HeadLineFragment
 import ru.aston.news.uiscreen.SavedFragment
+import ru.aston.news.uiscreen.SearchFragment
 import ru.aston.news.uiscreen.SingleBusinessFragment
 import ru.aston.news.uiscreen.SingleGeneralFragment
 import ru.aston.news.uiscreen.SinglePostFragment
@@ -53,6 +54,10 @@ object Screens : Screen {
 
     fun ForwardSavedPost() = FragmentScreen {
        SavedFragment()
+    }
+
+    fun ForwardFilterFragmnet() = FragmentScreen {
+       SearchFragment()
     }
 
 

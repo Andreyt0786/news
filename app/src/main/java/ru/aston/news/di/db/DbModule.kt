@@ -9,6 +9,7 @@ import ru.aston.news.dao.PostDao
 import ru.aston.news.dao.checkSource.CheckSourceDao
 import ru.aston.news.dao.general.GeneralDao
 import ru.aston.news.dao.savedSource.SavedDao
+import ru.aston.news.dao.search.SearchDao
 import ru.aston.news.dao.sourcePostDao.SourcePostDao
 import ru.aston.news.db.AppDb
 import javax.inject.Singleton
@@ -53,5 +54,10 @@ class DbModule() {
     fun provideSavedDao(
         appDb: AppDb
     ): SavedDao = appDb.savedDao()
+
+    @Provides
+    fun provideSearchDao(
+        appDb: AppDb
+    ): SearchDao = appDb.searchDao()
 }
 

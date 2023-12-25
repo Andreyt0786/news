@@ -17,7 +17,7 @@ class HeadLinePresenterImpl @Inject constructor(
 ) : MvpPresenter<HeadLineView>() {
     val TAG = HeadLinePresenterImpl::class.java.simpleName
 
-    val state = repository.filtersState
+
     fun navigate(id: Int) {
         router.navigateTo(ForwardSingleBusinessPost(id))
     }

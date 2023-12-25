@@ -5,4 +5,6 @@ interface MainEvent {
 
     class SaveLanguage(val language: String?) : MainEvent
 
+    class SaveTime(val startTime:String?, val endTime:String?):MainEvent
+
 }

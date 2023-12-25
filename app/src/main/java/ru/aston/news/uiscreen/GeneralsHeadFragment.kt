@@ -27,9 +27,6 @@ class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
         presenter.navigate(post.idPost)
     }
 
-  /*  @Inject
-    lateinit var viewModel: FilterViewModel
-*/
     @Inject
     @InjectPresenter
     lateinit var presenter: GeneralPresenter
@@ -54,15 +51,13 @@ class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
     @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val state = presenter.state
-        presenter.getData(state.language, state.relevant)
-      /*  viewModel.stateFilters.observe(viewLifecycleOwner) { state ->
-            Log.d("LiveData", "language = ${state.language}, relevant = ${state.relevant}")
-            presenter.getData(state.language, state.relevant)
-        }*/
+        val filters = presenter.getFilters()
+        presenter.getData(filters.language, filters.relevant,filters.dateFrom,filters.dateTo)
 
+        binding?.refreshView?.setOnRefreshListener {
+            presenter.getData(filters.language, filters.relevant,filters.dateFrom,filters.dateTo)
+        }
         binding?.setupRecycler()
-
     }
 
     private fun FragmentHeadGeneralBinding.setupRecycler() {
@@ -72,8 +67,8 @@ class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
     override fun updateRecycler(posts: List<Post>) {
         Log.d("WARNING", "posts delivered" + posts.toString())
         adapter.submitList(posts)
+        binding?.refreshView?.isRefreshing = false
     }
-
 }
 
 

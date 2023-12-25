@@ -60,7 +60,7 @@ class SourceFragment() : Fragment() {
         }
 
         binding?.refreshView?.setOnRefreshListener {
-           viewModel.refreshSource()
+           //adapter.refresh()
         }
         binding?.setupRecycler()
     }

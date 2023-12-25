@@ -169,6 +169,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import ru.aston.news.App
@@ -185,7 +186,7 @@ class SingleBusinessFragment : Fragment() {
     private var binding: FragmentSinglePostBinding? = null
 
     private val title: Int? by lazy { arguments?.getInt(EXTRA_TITLE) }
-
+    private var isLike = false
 
     @Inject
     lateinit var viewModel: SingleBusinessViewModel
@@ -213,8 +214,10 @@ class SingleBusinessFragment : Fragment() {
         Log.d("BusinessFragment", "title = $title")
         val posts = viewModel.posts
         Log.d("BusinessFragment", "$posts")
-        val post = posts.find { it.idPost == title }
-        Log.d("BusinessFragment", "$post")
+        val postL = posts.find { it.idPost == title }
+        Log.d("BusinessFragment", "$postL")
+        val post = title?.let(viewModel::onSetArgs)
+
 
 
         Log.d("BusinessFragment", "$title")
@@ -230,10 +233,17 @@ class SingleBusinessFragment : Fragment() {
             viewModel.navigateBack()
         }
 
+
         binding?.toolbar?.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.checked -> {
-                    viewModel.like(post)
+                   if(!isLike){
+                        viewModel.like(post)
+                        isLike = true
+                    } else {
+                        viewModel.remove(post)
+                       isLike = false
+                    }
                     true
                 }
 

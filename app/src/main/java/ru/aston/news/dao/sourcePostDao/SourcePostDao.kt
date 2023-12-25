@@ -14,9 +14,6 @@ interface SourcePostDao {
         @Query("SELECT * FROM SourcePostEntity ")
         fun getAll(): Flow<List<SourcePostEntity>>
 
-       /* @Query("SELECT * FROM PostEntity ORDER BY id DESC")
-        fun getPagingSource(): PagingSource<Int, PostEntity>*/
-
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         suspend fun insert(post: SourcePostEntity)
 

@@ -10,6 +10,7 @@ import ru.aston.news.dao.PostDao
 import ru.aston.news.dao.checkSource.CheckSourceDao
 import ru.aston.news.dao.general.GeneralDao
 import ru.aston.news.dao.savedSource.SavedDao
+import ru.aston.news.dao.search.SearchDao
 import ru.aston.news.di.api.headLine.ApiBusinessService
 import ru.aston.news.dto.Filters
 import ru.aston.news.dto.Post
@@ -17,6 +18,8 @@ import ru.aston.news.dto.Response
 import ru.aston.news.entity.headline.toDto
 import ru.aston.news.entity.headline.toGeneralEntity
 import ru.aston.news.entity.saved.SavedEntity
+import ru.aston.news.entity.search.SearchEntity
+import ru.aston.news.entity.search.toSearchEntity
 import ru.aston.news.entity.source.CheckSourceEntity
 import ru.aston.news.entity.source.toCheckSourceEntity
 import ru.aston.news.entity.toDto
@@ -29,12 +32,11 @@ class PostRepositoryImpl @Inject constructor(
     private val dao: PostDao,
     private val checkSourceDao: CheckSourceDao,
     private val generalDao: GeneralDao,
-    private val savedDao:SavedDao,
+    private val savedDao: SavedDao,
+    private val searchDao: SearchDao,
 ) : PostRepository {
 
-    //liveData для запросов
-    //override val filterState: MutableLiveData<Filters> = MutableLiveData(Filters())
-
+    private var filters: Filters = Filters()
 
 
     //Business
@@ -52,14 +54,15 @@ class PostRepositoryImpl @Inject constructor(
     override val singleBusinessPost: List<Post> = dao.getPost().map { it.toDto() }
 
 
-
-
-
-
     //General
 
-    override fun getGeneralPosts(language: String?, sortBy: String?): Single<List<Post>> =
-        apiService.getAllGeneral(language, sortBy)
+    override fun getGeneralPosts(
+        language: String?,
+        sortBy: String?,
+        from: String?,
+        to: String?
+    ): Single<List<Post>> =
+        apiService.getAllGeneral(language, sortBy, from, to)
             .onErrorResumeNext { Single.just(Response()) }
             .map { it.posts ?: emptyList() }
             .flatMap { posts ->
@@ -71,11 +74,30 @@ class PostRepositoryImpl @Inject constructor(
 
     override val singleGeneralPost: List<Post> = generalDao.getPost().map { it.toDto() }
 
+    override fun getPostById(postId: Int): Post? =
+        (singleBusinessPost + singleGeneralPost + singleSavedPost).toSet()
+            .find { it.idPost == postId }
 
+    //override suspend fun search(text: String): List<Post>? {
+    override suspend fun search(text: String) {
+        searchDao.clear()
+        val result = apiService.getSearchAll(text)
+        if (result.isSuccessful) {
+            val body = result.body()?.posts
+            searchDao.insertAll(body!!.toSearchEntity())
+        } else {
+            searchDao.insertAll(filteredDataFromDBBy(text)!!.toSearchEntity())
+        }
+    }
 
+    override val searchPosts =
+        searchDao.getSearchListAll().map { it.map(SearchEntity::toDto) }.flowOn(Dispatchers.Default)
 
-
-
+    private fun filteredDataFromDBBy(text: String): List<Post>? {
+        return (singleBusinessPost + singleGeneralPost + singleSavedPost).toSet().filter {
+            it.title == text || it.content == text || it.source.name == text || it.author == text
+        }
+    }
 
 
     //CheckSource
@@ -100,26 +122,19 @@ class PostRepositoryImpl @Inject constructor(
     }
 
 
-
     override fun saveRelevant(relevant: String?) {
-        filtersState = filtersState.copy(relevant = relevant)
-
-        /*Filters(
-        relevant = relevant,
-        language = null)*/
+        filters = filters.copy(relevant = relevant)
     }
 
     override fun saveLanguage(language: String?) {
-        filtersState = Filters(
-            relevant = filtersState.relevant,
-            language = language
-        )
+        filters = filters.copy(language = language)
     }
 
-    override var filtersState = Filters(null, "ru")
+    override fun saveData(startData: String?, toData: String?) {
+        filters = filters.copy(dateFrom = startData, dateTo = toData)
+    }
 
-
-
+    override fun getFilters(): Filters = filters
 
 
     //Saved
@@ -130,7 +145,7 @@ class PostRepositoryImpl @Inject constructor(
 
     override val singleSavedPost: List<Post> = savedDao.getSinglePost().map { it.toDto() }
 
-    override suspend fun remove(post:Post){
+    override suspend fun remove(post: Post) {
         savedDao.clear(post.idSaved)
     }
 

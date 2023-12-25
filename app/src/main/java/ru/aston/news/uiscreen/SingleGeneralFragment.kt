@@ -1,7 +1,6 @@
 package ru.aston.news.uiscreen
 
 
-
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -23,7 +22,6 @@ import com.bumptech.glide.Glide
 import ru.aston.news.App
 import ru.aston.news.R
 import ru.aston.news.databinding.FragmentSinglePostBinding
-import ru.aston.news.dto.Screens.BackCheckSource
 import ru.aston.news.viewModel.SingleGeneralViewModel
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -33,8 +31,7 @@ class SingleGeneralFragment : Fragment() {
 
     private var binding: FragmentSinglePostBinding? = null
 
-    private val title: Int? by lazy{arguments?.getInt(EXTRA_TITLE)}
-
+    private val title: Int? by lazy { arguments?.getInt(EXTRA_TITLE) }
 
     @Inject
     lateinit var viewModel: SingleGeneralViewModel
@@ -60,9 +57,11 @@ class SingleGeneralFragment : Fragment() {
 
 
         Log.d("GeneralFragment", "title = $title")
-        val posts = viewModel.posts
-        Log.d("GeneralFragment", "$posts")
-        val post = posts.find { it.idPost == title }
+        Log.d("GeneralFragment", "title = $title")
+       // val post = title?.let(viewModel::onSetArgs)
+val posts = viewModel.posts
+        Log.d("GeneralFragment", "title = $posts")
+        val post = title?.let { viewModel.onSetArgs(it) }
         Log.d("GeneralFragment", "$post")
 
 
@@ -73,7 +72,6 @@ class SingleGeneralFragment : Fragment() {
         val formatDateTime = actual.format(formatter)
 
         val length: Int = post?.content?.length!!
-
 
         binding?.toolbar?.setNavigationOnClickListener {
             viewModel.navigateBack()

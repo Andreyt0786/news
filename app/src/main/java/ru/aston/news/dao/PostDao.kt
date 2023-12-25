@@ -10,7 +10,7 @@ import ru.aston.news.entity.headline.GeneralEntity
 
 @Dao
 interface PostDao {
-    @Query("SELECT * FROM PostEntity")
+    @Query("SELECT * FROM PostEntity ORDER BY idPost DESC")
     fun getAll(): Single<List<PostEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,4 +21,7 @@ interface PostDao {
 
     @Query("SELECT * FROM PostEntity")
     fun getPost(): List<PostEntity>
+
+    @Query("DELETE FROM PostEntity")
+    fun clear()
 }

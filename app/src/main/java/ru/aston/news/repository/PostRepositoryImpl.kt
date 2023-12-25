@@ -40,8 +40,13 @@ class PostRepositoryImpl @Inject constructor(
 
 
     //Business
-    override fun getBusinessPosts(): Single<List<Post>> =
-        apiService.getAllBusiness()
+    override fun getBusinessPosts(
+        language: String?,
+        sortBy: String?,
+        from: String?,
+        to: String?
+    ): Single<List<Post>> =
+        apiService.getAllBusiness(language, sortBy, from, to)
             .onErrorResumeNext { Single.just(Response()) }
             .map { it.posts ?: emptyList() }
             .flatMap { posts ->
@@ -74,15 +79,11 @@ class PostRepositoryImpl @Inject constructor(
 
     override val singleGeneralPost: List<Post> = generalDao.getPost().map { it.toDto() }
 
-    override fun getPostById(postId: Int): Post? =
-        (singleBusinessPost + singleGeneralPost + singleSavedPost).toSet()
-            .find { it.idPost == postId }
-
-    //override suspend fun search(text: String): List<Post>? {
     override suspend fun search(text: String) {
-        searchDao.clear()
+
         val result = apiService.getSearchAll(text)
         if (result.isSuccessful) {
+            searchDao.clear()
             val body = result.body()?.posts
             searchDao.insertAll(body!!.toSearchEntity())
         } else {

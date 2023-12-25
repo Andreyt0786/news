@@ -51,6 +51,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.textInput?.editText?.addTextChangedListener {
+            adapter.submitList(null)
             viewModel.search(text = it.toString())
         }
 
@@ -61,8 +62,9 @@ class SearchFragment : Fragment() {
         }
 
         binding?.back?.setOnClickListener {
-            viewModel.navigateBack()
+            adapter.submitList(null)
         }
+
         binding?.exit?.setOnClickListener {
             viewModel.navigateBack()
         }
@@ -73,6 +75,7 @@ class SearchFragment : Fragment() {
     private fun FragmentSearchBinding.setupRecycler() {
         list.adapter = adapter
     }
+
 
 }
 

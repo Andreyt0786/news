@@ -72,7 +72,7 @@ class SingleSavedFragment : Fragment() {
 
         val length: Int = post?.content?.length!!
 
-
+        binding?.toolbar?.title = post.title
         binding?.toolbar?.setNavigationOnClickListener {
             viewModel.navigateBack()
         }
@@ -81,13 +81,13 @@ class SingleSavedFragment : Fragment() {
         binding?.toolbar?.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.checked -> {
-                   /* if(!post.isLiked) {
-                        viewModel.like(post)
-                        post.isLiked = true
-                    } else {
-                        viewModel.remove(post)
-                        post.isLiked = false
-                    }*/
+                    /* if(!post.isLiked) {
+                         viewModel.like(post)
+                         post.isLiked = true
+                     } else {
+                         viewModel.remove(post)
+                         post.isLiked = false
+                     }*/
                     viewModel.remove(post)
 
 
@@ -119,8 +119,7 @@ class SingleSavedFragment : Fragment() {
     }
 
 
-
-        companion object {
+    companion object {
         private const val EXTRA_TITLE = "extra_title"
 
         fun getNewInstance(title: Int): SingleSavedFragment {

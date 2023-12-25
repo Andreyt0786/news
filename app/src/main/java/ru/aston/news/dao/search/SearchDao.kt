@@ -20,11 +20,11 @@ import ru.aston.news.entity.search.SearchEntity
         fun insertAll(posts: List<SearchEntity>)
 
 
-        @Query("SELECT * FROM SearchEntity")
+        @Query("SELECT * FROM SearchEntity ORDER BY idPost DESC")
         fun getSearchListAll(): Flow<List<SearchEntity>>
 
 
-        @Query("SELECT * FROM SearchEntity")
+        @Query("SELECT * FROM SearchEntity ORDER BY idPost DESC")
         fun getSearchList(): List<SearchEntity>
 
         @Query("DELETE FROM SavedEntity")

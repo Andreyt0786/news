@@ -8,6 +8,8 @@ import moxy.MvpPresenter
 import ru.aston.news.App.Companion.router
 import ru.aston.news.DisposableManager
 import ru.aston.news.dto.Filters
+import ru.aston.news.dto.Screens
+import ru.aston.news.dto.Screens.ForwardSingleBusinessPost
 import ru.aston.news.dto.Screens.ForwardSingleGeneralPost
 import ru.aston.news.repository.PostRepository
 import javax.inject.Inject
@@ -16,13 +18,13 @@ import javax.inject.Inject
 @InjectViewState
 class GeneralPresenter @Inject constructor(
     private val generalRepository: PostRepository
-):MvpPresenter<GeneralView>() {
+) : MvpPresenter<GeneralView>() {
 
     val TAG = GeneralPresenter::class.java.simpleName
 
-    fun getData(language:String?,sortBy:String?,from:String?,to:String?) {
+    fun getData(language: String?, sortBy: String?, from: String?, to: String?) {
         DisposableManager.add(
-            generalRepository.getGeneralPosts(language,sortBy,from,to)
+            generalRepository.getGeneralPosts(language, sortBy, from, to)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ response ->
@@ -35,8 +37,9 @@ class GeneralPresenter @Inject constructor(
 
     fun getFilters(): Filters = generalRepository.getFilters()
 
-    fun navigate(title:Int){
-       router.navigateTo(ForwardSingleGeneralPost(title))
 
+    fun navigate(id: Int) {
+        router.navigateTo(ForwardSingleGeneralPost(id))
     }
+
 }

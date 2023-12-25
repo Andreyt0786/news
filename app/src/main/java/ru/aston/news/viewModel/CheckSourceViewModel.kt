@@ -30,7 +30,7 @@ class CheckSourceViewModel @Inject constructor(
     }
 
     fun navigateBacktoSource(){
-        router.navigateTo(BackHeadlineFragment())
+        router.exit()
     }
     fun navigatetoSource(id:String, name:String){
         router.navigateTo(ForwardCheckSource(id, name))

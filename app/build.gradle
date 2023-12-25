@@ -81,7 +81,7 @@ dependencies {
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "androidx.core:core-ktx:$core_version"
-    implementation 'androidx.activity:activity-compose:1.8.1'
+    implementation 'androidx.activity:activity-compose:1.8.2'
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
@@ -119,6 +119,7 @@ dependencies {
     implementation "com.github.moxy-community:moxy:$moxyVersion"
     implementation "com.github.moxy-community:moxy-androidx:$moxyVersion"
     kapt "com.github.moxy-community:moxy-compiler:$moxyVersion"
+    implementation 'com.airbnb.android:lottie:6.2.0'
 
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
 
@@ -133,8 +134,7 @@ dependencies {
     //annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
     //kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
-    //для запросов в сеть
-    // implementation 'com.github.KwabenBerko:News-API-Java:1.0.0'
+
 
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
     implementation 'io.reactivex.rxjava3:rxjava:3.1.5'

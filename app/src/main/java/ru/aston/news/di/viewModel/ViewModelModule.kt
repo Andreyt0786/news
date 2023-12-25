@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import ru.aston.news.viewModel.CheckSourceViewModel
+import ru.aston.news.viewModel.HeadLineViewModel
 import ru.aston.news.viewModel.SavedViewModel
 import ru.aston.news.viewModel.SearchViewModel
 import ru.aston.news.viewModel.SingleBusinessViewModel
@@ -33,5 +34,8 @@ interface ViewModelModule {
 
     @Binds
     fun bindsSearchViewModel(viewModel: SearchViewModel): ViewModel
+
+    @Binds
+    fun bindsHeadLineViewModel(viewModel: HeadLineViewModel): ViewModel
 
 }

@@ -13,7 +13,12 @@ interface PostRepository {
 
     //Business
     val singleBusinessPost: List<Post>
-    fun getBusinessPosts(): Single<List<Post>>
+    fun getBusinessPosts(
+        language: String?,
+        sortBy: String?,
+        from: String?,
+        to: String?
+    ): Single<List<Post>>
 
     //General
 
@@ -26,11 +31,12 @@ interface PostRepository {
 
     val singleGeneralPost: List<Post>
 
-    fun getPostById(postId: Int): Post?
+    //fun getPostById(postId: Int): Post?
 
     suspend fun search(text: String)
 
-    val searchPosts:Flow<List<Post>>
+    val searchPosts: Flow<List<Post>>
+
     //CheckSource
     val dataCheckPost: Flow<List<Post>>
 

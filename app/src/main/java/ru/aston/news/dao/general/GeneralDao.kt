@@ -10,7 +10,7 @@ import ru.aston.news.entity.headline.GeneralEntity
 
 @Dao
 interface GeneralDao {
-    @Query("SELECT * FROM GeneralEntity ORDER BY idPost DESC")
+    @Query("SELECT * FROM GeneralEntity")
     fun getAll(): Single<List<GeneralEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

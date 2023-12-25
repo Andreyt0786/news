@@ -14,17 +14,20 @@ import ru.aston.news.adapter.pager.NumberAdapter
 import ru.aston.news.databinding.FragmentHeadlinesBinding
 import ru.aston.news.dto.Screens.ForwardFilter
 import ru.aston.news.dto.Screens.ForwardFilterFragmnet
+import ru.aston.news.viewModel.HeadLineViewModel
+import javax.inject.Inject
 
 class HeadLineFragment : Fragment() {
 
     /*  @Inject
       lateinit var router: Router
   */
-
+    @Inject
+    lateinit var viewModel: HeadLineViewModel
     private lateinit var adapter: NumberAdapter
 
     private val fragList = listOf(
-        GeneralsHeadFragment(),//(.newInstance()),
+        GeneralsHeadFragment(),
         GeneralBusinessFragment(),
         GeneralTravelFragment(),
     )
@@ -66,12 +69,12 @@ class HeadLineFragment : Fragment() {
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.filter -> {
-                    router.navigateTo(ForwardFilter())
+                    viewModel.navigateToFilter()
                     true
                 }
 
                 R.id.search -> {
-                    router.navigateTo(ForwardFilterFragmnet())
+                    viewModel.navigateToSearch()
                     true
                 }
 

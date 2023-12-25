@@ -1,5 +1,6 @@
 package ru.aston.news.uiscreen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import moxy.presenter.ProvidePresenter
 import ru.aston.news.App
 import ru.aston.news.adapter.post.PostAdapter
 import ru.aston.news.databinding.FragmentHeadBusinessBinding
+import ru.aston.news.databinding.FragmentHeadGeneralBinding
 import ru.aston.news.dto.Post
 import ru.aston.news.presenters.headLine.HeadLinePresenterImpl
 import ru.aston.news.presenters.headLine.HeadLineView
@@ -25,6 +27,7 @@ class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
         Log.d("BusinessFragment", "${post.idPost}")
         presenter.navigate(post.idPost)
     }
+
 
     @Inject
     @InjectPresenter
@@ -47,10 +50,15 @@ class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
         return binding?.root
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.getData()
+        val filters = presenter.getFilters()
+        presenter.getData(filters.language, filters.relevant,filters.dateFrom,filters.dateTo)
 
+        binding?.refreshView?.setOnRefreshListener {
+            presenter.getData(filters.language, filters.relevant,filters.dateFrom,filters.dateTo)
+        }
         binding?.setupRecycler()
     }
 
@@ -61,12 +69,13 @@ class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
     override fun updateRecycler(posts: List<Post>) {
         Log.d("WARNING", "posts delivered" + posts.toString())
         adapter.submitList(posts)
+        binding?.refreshView?.isRefreshing = false
     }
 
     override fun navigToPost(id: Int) {
 
     }
-
 }
+
 
 

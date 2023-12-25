@@ -16,7 +16,7 @@ class SingleGeneralViewModel @Inject constructor(
 
     val posts = repository.singleGeneralPost
 
-    fun onSetArgs(postId: Int) = repository.getPostById(postId)
+  //  fun onSetArgs(postId: Int) = repository.getPostById(postId)
     fun navigateBack() {
         router.exit()
     }

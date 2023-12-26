@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -15,9 +16,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.aston.news.App
 import ru.aston.news.adapter.post.PostAdapter
-import ru.aston.news.databinding.FragmentHeadGeneralBinding
 import ru.aston.news.databinding.FragmentSearchBinding
-import ru.aston.news.dto.Post
 import ru.aston.news.viewModel.SearchViewModel
 import javax.inject.Inject
 
@@ -25,7 +24,7 @@ class SearchFragment : Fragment() {
 
     private var binding: FragmentSearchBinding? = null
     private val adapter = PostAdapter { post ->
-        Log.d("GeneralFragment", "${post.idPost}")
+        Log.d("SearchFragment", "${post.idPost}")
         viewModel.navigateTo(post.idPost)
     }
 
@@ -50,6 +49,8 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         binding?.textInput?.editText?.addTextChangedListener {
             adapter.submitList(null)
             viewModel.search(text = it.toString())
@@ -58,6 +59,21 @@ class SearchFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.posts.collectLatest {
                 adapter.submitList(it)
+                binding?.refreshView?.isRefreshing = false
+            }
+        }
+
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            binding?.progress?.isVisible = state.loading
+            binding?.refreshView?.isRefreshing = state.refreshing
+            binding?.errorGroup?.isVisible = state.error
+        }
+
+        binding?.refreshView?.setOnRefreshListener {
+            binding?.textInput?.editText?.addTextChangedListener {
+                adapter.submitList(null)
+                viewModel.search(text = it.toString())
+                binding?.refreshView?.isRefreshing = false
             }
         }
 
@@ -66,6 +82,8 @@ class SearchFragment : Fragment() {
         }
 
         binding?.exit?.setOnClickListener {
+            adapter.submitList(null)
+            viewModel.clearDB()
             viewModel.navigateBack()
         }
 

@@ -29,5 +29,8 @@
     <string name="language">Language</string>
     <string name="select_data">Select data</string>
     <string name="back">Кнопка назад</string>
-
+    <string name="something_went_wrong">Что то пошло не так.</string>
+    <string name="something_went">Попробуйте еще раз</string>
+    <string name="empty_list">Список постов пуст</string>
+    <string name="refresh">refresh</string>
 </resources>

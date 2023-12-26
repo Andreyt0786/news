@@ -30,12 +30,16 @@ interface PostRepository {
     ): Single<List<Post>>
 
     val singleGeneralPost: List<Post>
+    fun addGeneral(post:Post)
+    fun removeGeneral(post: Post)
 
     //fun getPostById(postId: Int): Post?
 
     suspend fun search(text: String)
 
     val searchPosts: Flow<List<Post>>
+
+    suspend fun clearSearchDao()
 
     //CheckSource
     val dataCheckPost: Flow<List<Post>>

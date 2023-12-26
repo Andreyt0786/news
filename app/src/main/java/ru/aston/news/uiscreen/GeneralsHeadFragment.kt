@@ -58,6 +58,11 @@ class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
         binding?.refreshView?.setOnRefreshListener {
             presenter.getData(filters.language, filters.relevant, filters.dateFrom, filters.dateTo)
         }
+
+        binding?.refrehButton?.setOnClickListener {
+            presenter.getData(filters.language, filters.relevant, filters.dateFrom, filters.dateTo)
+        }
+
         binding?.setupRecycler()
     }
 
@@ -70,16 +75,19 @@ class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
         adapter.submitList(posts)
         binding?.refreshView?.isRefreshing = false
         binding?.progress?.isVisible = false
+        binding?.errorGroup?.isVisible = false
     }
 
     override fun showProgress() {
         binding?.progress?.isVisible = true
-       // binding?.meditator?.isVisible = false
+        binding?.errorGroup?.isVisible = false
         binding?.refreshView?.isRefreshing = false
     }
 
     override fun error() {
-       // binding?.meditator?.isVisible = true
+        binding?.progress?.isVisible = false
+        binding?.errorGroup?.isVisible = true
+        binding?.refreshView?.isRefreshing = false
     }
 }
 

@@ -15,6 +15,7 @@ import ru.aston.news.di.api.headLine.ApiBusinessService
 import ru.aston.news.dto.Filters
 import ru.aston.news.dto.Post
 import ru.aston.news.dto.Response
+import ru.aston.news.entity.headline.GeneralEntity
 import ru.aston.news.entity.headline.toDto
 import ru.aston.news.entity.headline.toGeneralEntity
 import ru.aston.news.entity.saved.SavedEntity
@@ -79,6 +80,13 @@ class PostRepositoryImpl @Inject constructor(
 
     override val singleGeneralPost: List<Post> = generalDao.getPost().map { it.toDto() }
 
+    override fun addGeneral(post: Post) {
+        generalDao.insert(GeneralEntity.fromDto(post))
+    }
+    override  fun removeGeneral(post: Post) {
+        generalDao.removePost(post.idSaved)
+    }
+
     override suspend fun search(text: String) {
 
         val result = apiService.getSearchAll(text)
@@ -91,6 +99,10 @@ class PostRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun clearSearchDao() {
+        searchDao.clear()
+    }
+
     override val searchPosts =
         searchDao.getSearchListAll().map { it.map(SearchEntity::toDto) }.flowOn(Dispatchers.Default)
 
@@ -98,6 +110,8 @@ class PostRepositoryImpl @Inject constructor(
         return (singleBusinessPost + singleGeneralPost + singleSavedPost).toSet().filter {
             it.title == text || it.content == text || it.source.name == text || it.author == text
         }
+
+
     }
 
 

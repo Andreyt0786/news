@@ -28,4 +28,8 @@
     <string name="language">Language</string>
     <string name="select_data">Select data</string>
     <string name="back">Button back</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="something_went">Try later</string>
+    <string name="empty_list">There is no posts</string>
+    <string name="refresh">refresh</string>
 </resources>

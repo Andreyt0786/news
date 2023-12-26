@@ -7,5 +7,5 @@ interface SourcePostRepository {
 
     val dataSourcePost: Flow<List<SourcePost>>
 
-    suspend fun getSourcePost()
+    suspend fun getSourcePost(language: String?)
 }

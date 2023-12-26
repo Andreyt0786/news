@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collectLatest
@@ -12,7 +13,6 @@ import kotlinx.coroutines.launch
 import ru.aston.news.App
 import ru.aston.news.adapter.post.PostAdapter
 import ru.aston.news.databinding.FragmentCheckPostBinding
-import ru.aston.news.dto.Screens.ForwardSinglePost
 import ru.aston.news.viewModel.CheckSourceViewModel
 import javax.inject.Inject
 
@@ -53,9 +53,11 @@ class CheckSourceFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         requireArguments().getString(EXTRA_ID)?.let { viewModel.loadSourcePost(it) }
+
         lifecycleScope.launch {
             viewModel.posts.collectLatest {
                 adapter.submitList(it)
+                binding?.refreshView?.isRefreshing = false
             }
         }
 
@@ -63,6 +65,22 @@ class CheckSourceFragment() : Fragment() {
         binding?.topAppBar?.setNavigationOnClickListener {
             viewModel.navigateBacktoSource()
         }
+
+
+        binding?.refrehButton?.setOnClickListener {
+            requireArguments().getString(EXTRA_ID)?.let { viewModel.loadSourcePost(it) }
+        }
+
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            binding?.progress?.isVisible = state.loading
+            binding?.refreshView?.isRefreshing = state.refreshing
+            binding?.errorGroup?.isVisible = state.error
+        }
+
+        binding?.refreshView?.setOnRefreshListener {
+            requireArguments().getString(EXTRA_ID)?.let { viewModel.loadSourcePost(it) }
+        }
+
         binding?.setupRecycler()
     }
 

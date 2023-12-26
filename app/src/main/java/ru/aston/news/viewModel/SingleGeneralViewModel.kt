@@ -16,7 +16,7 @@ class SingleGeneralViewModel @Inject constructor(
 
     val posts = repository.singleGeneralPost
 
-  //  fun onSetArgs(postId: Int) = repository.getPostById(postId)
+    //  fun onSetArgs(postId: Int) = repository.getPostById(postId)
     fun navigateBack() {
         router.exit()
     }
@@ -25,5 +25,13 @@ class SingleGeneralViewModel @Inject constructor(
         viewModelScope.launch {
             repository.add(post)
         }
+        repository.addGeneral(post)
+    }
+
+    fun dislike(post: Post) {
+        viewModelScope.launch {
+            repository.remove(post)
+        }
+        repository.removeGeneral(post)
     }
 }

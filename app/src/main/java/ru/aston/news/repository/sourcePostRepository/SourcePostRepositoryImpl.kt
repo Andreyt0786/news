@@ -19,9 +19,9 @@ class SourcePostRepositoryImpl @Inject constructor(
     override val dataSourcePost: Flow<List<SourcePost>> =
         sourcePostDao.getAll().map { it.map(SourcePostEntity::toDto) }.flowOn(Dispatchers.Default)
 
-    override suspend fun getSourcePost() {
+    override suspend fun getSourcePost(language: String?) {
         sourcePostDao.clear()
-        val sourcePost = apiSourceService.getAll()
+        val sourcePost = apiSourceService.getAll(language)
         if (!sourcePost.isSuccessful) {
             throw ApiError(sourcePost.code(), sourcePost.message())
         }

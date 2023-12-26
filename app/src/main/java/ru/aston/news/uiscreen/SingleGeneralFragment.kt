@@ -163,6 +163,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import ru.aston.news.App
@@ -200,7 +201,7 @@ class SingleGeneralFragment : Fragment() {
         Log.d("GeneralFragment", "title = $title")
         val posts = viewModel.posts
         Log.d("GeneralFragment", "$posts")
-        val post = posts.find { it.idPost == title }
+        var post = posts.find { it.idPost == title }
         Log.d("GeneralFragment", "$post")
         Log.d("GeneralFragment", "$title")
         val time = post?.publishedAt
@@ -215,29 +216,40 @@ class SingleGeneralFragment : Fragment() {
             viewModel.navigateBack()
         }
         binding?.toolbar?.title = post.title
-        binding?.toolbar?.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.checked -> {
-                    viewModel.like(post)
-                    true
-                }
 
-                else -> false
-            }
-        }
-        clickable(post.content!!, post.url)
+
+        clickable(post!!.content!!, post!!.url)
         binding?.apply {
-            headline.text = post.title
-            text.text = post.source.name
+            headline.text = post!!.title
+            text.text = post!!.source.name
             data.text = formatDateTime
-            if (post.urlToImage.isNullOrEmpty()) {
+            if (post!!.urlToImage.isNullOrEmpty()) {
                 binding!!.thumbnail.setImageResource(R.mipmap.noimageavailable)
             } else {
-                val url = post.urlToImage
+                val url = post!!.urlToImage
                 Glide.with(binding!!.thumbnail)
                     .load(url)
                     .timeout(10000)
                     .into(binding!!.thumbnail)
+            }
+        }
+
+        binding?.toolbar?.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.checked -> {
+                    if (!post!!.isLiked) {
+                        post = post!!.copy(isLiked = true)
+                        menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.bookmark_24px)
+                        viewModel.like(post!!)
+                    } else {
+                        post = post!!.copy(isLiked = false)
+                        menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.bookmark_border_24px)
+                        viewModel.dislike(post!!)
+                    }
+                    true
+                }
+
+                else -> false
             }
         }
     }

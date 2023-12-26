@@ -163,6 +163,7 @@ class FilterFragment : Fragment() {
         binding?.tab?.setOnClickListener {
             datePicker.show(childFragmentManager, null)
         }
+
         binding?.istab?.setOnClickListener {
             datePicker.show(childFragmentManager, null)
         }

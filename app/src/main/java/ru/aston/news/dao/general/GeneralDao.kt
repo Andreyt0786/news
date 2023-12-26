@@ -25,6 +25,9 @@ interface GeneralDao {
     @Query("DELETE FROM GeneralEntity")
      fun clear()
 
+    @Query("DELETE FROM SavedEntity  WHERE idSaved = :idSaved")
+    fun removePost(idSaved: Int)
+
 }
 
 

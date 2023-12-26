@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.aston.news.App
+import ru.aston.news.R
 import ru.aston.news.adapter.post.PostAdapter
 import ru.aston.news.databinding.FragmentSavedBinding
 import ru.aston.news.viewModel.SavedViewModel
@@ -48,8 +50,37 @@ class SavedFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.posts.collectLatest {
                 adapter.submitList(it)
+                binding?.refreshView?.isRefreshing = false
+                binding?.errorGroup?.isVisible = it.isEmpty()
             }
         }
+
+        binding?.refreshView?.setOnRefreshListener {
+            lifecycleScope.launch {
+                viewModel.posts.collectLatest {
+                    adapter.submitList(it)
+                    binding?.refreshView?.isRefreshing = false
+                    binding?.errorGroup?.isVisible = it.isEmpty()
+                }
+            }
+        }
+
+        binding?.topAppBar?.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.filter -> {
+                    viewModel.navigateToFilter()
+                    true
+                }
+
+                R.id.search -> {
+                    viewModel.navigateToSearch()
+                    true
+                }
+
+                else -> false
+            }
+        }
+
         binding?.setupRecycler()
     }
 

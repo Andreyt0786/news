@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.aston.news.App
+import ru.aston.news.R
 import ru.aston.news.adapter.sourcePost.InteractionListener
 import ru.aston.news.adapter.sourcePost.SourcePostAdapter
 import ru.aston.news.databinding.FragmentSourcesBinding
@@ -19,8 +21,8 @@ import ru.aston.news.viewModel.SourcePostViewModel
 import javax.inject.Inject
 
 class SourceFragment() : Fragment() {
-   // @Inject
-   //lateinit var router: Router
+    // @Inject
+    //lateinit var router: Router
 
     @Inject
     lateinit var viewModel: SourcePostViewModel
@@ -29,8 +31,8 @@ class SourceFragment() : Fragment() {
     private val adapter = SourcePostAdapter(object : InteractionListener {
 
         override fun showWall(sourcePost: SourcePost) {
-              Log.d("SourceFragment", "ShowWall")
-           viewModel.navigateToSourceFrag(sourcePost.id, sourcePost.name)
+            Log.d("SourceFragment", "ShowWall")
+            viewModel.navigateToSourceFrag(sourcePost.id, sourcePost.name)
         }
     })
 
@@ -52,16 +54,46 @@ class SourceFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loadSourcePost()
+        val filters = viewModel.getFilters()
+
+        viewModel.loadSourcePost(filters.language)
         lifecycleScope.launch {
             viewModel.posts.collectLatest {
                 adapter.submitList(it)
+                binding?.refreshView?.isRefreshing = false
             }
         }
 
-        binding?.refreshView?.setOnRefreshListener {
-           //adapter.refresh()
+        binding?.refrehButton?.setOnClickListener {
+            viewModel.loadSourcePost(filters.language)
         }
+
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            binding?.progress?.isVisible = state.loading
+            binding?.refreshView?.isRefreshing = state.refreshing
+            binding?.errorGroup?.isVisible = state.error
+        }
+
+        binding?.refreshView?.setOnRefreshListener {
+            viewModel.loadSourcePost(filters.language)
+        }
+
+        binding?.topAppBar?.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.filter -> {
+                    viewModel.navigateToFilter()
+                    true
+                }
+
+                R.id.search -> {
+                    viewModel.navigateToSearch()
+                    true
+                }
+
+                else -> false
+            }
+        }
+
         binding?.setupRecycler()
     }
 

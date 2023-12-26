@@ -1,5 +1,7 @@
 package ru.aston.news.viewModel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
@@ -7,6 +9,8 @@ import ru.aston.news.App
 import ru.aston.news.dto.Post
 import ru.aston.news.dto.Screens
 import ru.aston.news.dto.Screens.ForwardSavedPost
+import ru.aston.news.model.SaveModel
+import ru.aston.news.model.SourceModelState
 import ru.aston.news.repository.PostRepository
 import javax.inject.Inject
 
@@ -14,6 +18,9 @@ class SavedViewModel @Inject constructor(
     private val repository: PostRepository,
 ) : ViewModel() {
 
+    private val _state = MutableLiveData(SaveModel())
+    val state: LiveData<SaveModel>
+        get() = _state
 
     val posts = repository.dataSavedPost
 
@@ -39,5 +46,12 @@ class SavedViewModel @Inject constructor(
         }
     }
 
+    fun navigateToSearch() {
+        App.router.navigateTo(Screens.ForwardFilterFragmnet())
+    }
+
+    fun navigateToFilter() {
+        App.router.navigateTo(Screens.ForwardFilter())
+    }
 
 }

@@ -1,16 +1,29 @@
 package ru.aston.news.uiscreen;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
+import java.util.List;
 
+import moxy.MvpAppCompatFragment;
+import ru.aston.news.App;
 import ru.aston.news.R;
+import ru.aston.news.dto.Post;
+import ru.aston.news.presenters.travel.TravelView;
 
 
-public class GeneralTravelFragment extends Fragment {
+public class GeneralTravelFragment extends MvpAppCompatFragment implements TravelView {
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        App.appComponent.inject(this);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -22,5 +35,15 @@ public class GeneralTravelFragment extends Fragment {
         //nextButton.setOnClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void updateToPost(List<Post> posts) {
+
+    }
+
+    @Override
+    public void navigToPost(int id) {
+
     }
 }

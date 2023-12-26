@@ -14,6 +14,7 @@ import ru.aston.news.uiscreen.BottomNavigationFragment
 import ru.aston.news.uiscreen.CheckSourceFragment
 import ru.aston.news.uiscreen.FilterFragment
 import ru.aston.news.uiscreen.GeneralBusinessFragment
+import ru.aston.news.uiscreen.GeneralTravelFragment
 import ru.aston.news.uiscreen.GeneralsHeadFragment
 import ru.aston.news.uiscreen.HeadLineFragment
 import ru.aston.news.uiscreen.SavedFragment
@@ -68,5 +69,9 @@ interface AppComponent {
     fun inject(fragment: HeadLineFragment)
 
     fun inject(fragment: SearchFragment)
+
+    fun inject(fragment: GeneralTravelFragment)
+
+
 }
 

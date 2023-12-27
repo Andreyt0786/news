@@ -54,7 +54,7 @@ class PostRepositoryImpl @Inject constructor(
             .flatMap { posts ->
                 travelDao.clear()
                 if (posts.isNotEmpty()) {
-                    // travelDao.clear()
+                     travelDao.clear()
                     travelDao.insertAll(posts.toTravelEntity())
                 }
                 travelDao.getAll().map { it.toDto() }

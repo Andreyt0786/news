@@ -85,6 +85,7 @@ class GeneralsHeadFragment : MvpAppCompatFragment(), GeneralView {
     }
 
     override fun error() {
+        adapter.submitList(null)
         binding?.progress?.isVisible = false
         binding?.errorGroup?.isVisible = true
         binding?.refreshView?.isRefreshing = false

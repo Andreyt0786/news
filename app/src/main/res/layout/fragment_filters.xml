@@ -101,14 +101,29 @@
         app:layout_constraintTop_toTopOf="@id/data" />
 
     <TextView
+        android:id="@+id/data_text_blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp"
+        android:textColor="@color/primary_60"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/common_spacing4"
+        app:layout_constraintBottom_toBottomOf="@id/data"
+        app:layout_constraintEnd_toStartOf="@id/istab"
+        app:layout_constraintTop_toTopOf="@id/data"
+        tools:text="@string/checked_data" />
+
+    <TextView
         android:id="@+id/data_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="11sp"
+        android:text="@string/checked_data"
+        android:layout_marginEnd="@dimen/common_spacing4"
         app:layout_constraintBottom_toBottomOf="@id/data"
         app:layout_constraintEnd_toStartOf="@id/tab"
         app:layout_constraintTop_toTopOf="@id/data"
-        tools:text="выбранная дата" />
+        tools:text="@string/checked_data" />
 
     <TextView
         android:id="@+id/language"

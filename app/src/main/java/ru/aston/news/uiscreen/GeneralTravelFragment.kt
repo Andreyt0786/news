@@ -13,26 +13,25 @@ import moxy.presenter.InjectPresenter
 import moxy.presenter.ProvidePresenter
 import ru.aston.news.App
 import ru.aston.news.adapter.post.PostAdapter
-import ru.aston.news.databinding.FragmentHeadBusinessBinding
-
+import ru.aston.news.databinding.FragmentHeadTravelBinding
 import ru.aston.news.dto.Post
-import ru.aston.news.presenters.headLine.HeadLinePresenterImpl
-import ru.aston.news.presenters.headLine.HeadLineView
+import ru.aston.news.presenters.general.GeneralView
+import ru.aston.news.presenters.travel.TravelPresenter
+import ru.aston.news.presenters.travel.TravelView
 import javax.inject.Inject
 
-class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
 
-    private var binding: FragmentHeadBusinessBinding? = null
+class GeneralTravelFragment : MvpAppCompatFragment(), TravelView {
 
+    private var binding: FragmentHeadTravelBinding? = null
     private val adapter = PostAdapter { post ->
-        Log.d("BusinessFragment", "${post.idPost}")
+        Log.d("TravelFragment", "${post.idPost}")
         presenter.navigate(post.idPost)
     }
 
-
     @Inject
     @InjectPresenter
-    lateinit var presenter: HeadLinePresenterImpl
+    lateinit var presenter: TravelPresenter
 
     @ProvidePresenter
     fun providePresenter() = presenter
@@ -47,7 +46,7 @@ class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHeadBusinessBinding.inflate(inflater, container, false)
+        binding = FragmentHeadTravelBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -68,7 +67,7 @@ class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
         binding?.setupRecycler()
     }
 
-    private fun FragmentHeadBusinessBinding.setupRecycler() {
+    private fun FragmentHeadTravelBinding.setupRecycler() {
         list.adapter = adapter
     }
 
@@ -91,11 +90,6 @@ class GeneralBusinessFragment : MvpAppCompatFragment(), HeadLineView {
         binding?.errorGroup?.isVisible = true
         binding?.refreshView?.isRefreshing = false
     }
-
-    override fun navigToPost(id: Int) {
-
-    }
 }
-
 
 

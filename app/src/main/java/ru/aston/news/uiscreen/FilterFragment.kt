@@ -16,6 +16,7 @@ import ru.aston.news.databinding.FragmentFiltersBinding
 import ru.aston.news.dto.MainEvent
 import ru.aston.news.viewModel.FilterViewModel
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
@@ -34,6 +35,7 @@ class FilterFragment : Fragment() {
         App.appComponent.inject(this)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -101,7 +103,6 @@ class FilterFragment : Fragment() {
         binding?.topAppBar?.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.checked -> {
-
                     viewModel.navigateBack()
                     true
                 }
@@ -111,8 +112,6 @@ class FilterFragment : Fragment() {
         }
 
         setupData()
-
-
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
             updateLanguagePosition(state?.language)
@@ -125,9 +124,17 @@ class FilterFragment : Fragment() {
             if (!state?.dateFrom.isNullOrEmpty()) {
                 binding!!.tab.visibility = View.GONE
                 binding!!.istab.visibility = View.VISIBLE
+                binding!!.dataText.visibility = View.GONE
+                binding!!.dataTextBlue.visibility = View.VISIBLE
+                val dataFrom = state?.startTime?.substring(0,6)
+                val year = state?.dateFrom?.substring(0, 4)
+                val dataTo = state!!.endTime?.substring(0,6)
+                binding!!.dataTextBlue.text = "$dataFrom-$dataTo,$year"
             } else {
                 binding!!.istab.visibility = View.GONE
                 binding!!.tab.visibility = View.VISIBLE
+                binding!!.dataText.visibility = View.VISIBLE
+                binding!!.dataTextBlue.visibility = View.GONE
             }
         }
 
@@ -174,20 +181,24 @@ class FilterFragment : Fragment() {
 
             }
             val myFormat = SimpleDateFormat("yyyy-MM-dd")
+            val format = SimpleDateFormat("MMMdd yyyy | HH:mm")
             val start = myFormat.format(startCalendar.getTime())
+
+            val startTime = format.format(startCalendar.getTime())
             val endCalendar = Calendar.getInstance(TimeZone.getDefault()).apply {
                 timeInMillis = selection.second
             }
             val end = myFormat.format(endCalendar.getTime())
+            val endTime = format.format(endCalendar.getTime())
 
             viewModel.send(
-                MainEvent.SaveTime(start, end)
+                MainEvent.SaveTime(start, end, startTime, endTime)
             )
-            Log.d("LiveData", "$start")
+            Log.d("LiveData", "$startTime")
         }
 
-        // datePicker.addOnNegativeButtonClickListener {
-        //     filtersViewModel.onEvent(FiltersEvent.OnChosenDatesChanged(null))
-        // }
+        datePicker.addOnNegativeButtonClickListener {
+            MainEvent.SaveTime(null, null, null, null)
+        }
     }
 }

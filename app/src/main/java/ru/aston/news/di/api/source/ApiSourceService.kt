@@ -8,7 +8,7 @@ import ru.aston.news.dto.ResponseSource
 
 interface ApiSourceService {
 
-    @GET("top-headlines/sources?country=us&apiKey=1f070c3add6f4e97a0babd69e1977be9")
+    @GET("top-headlines/sources?apiKey=1f070c3add6f4e97a0babd69e1977be9")
 
     suspend fun getAll(
         @Query("language") language: String?,

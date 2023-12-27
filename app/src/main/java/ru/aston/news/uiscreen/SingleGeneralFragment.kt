@@ -217,7 +217,6 @@ class SingleGeneralFragment : Fragment() {
         }
         binding?.toolbar?.title = post.title
 
-
         clickable(post!!.content!!, post!!.url)
         binding?.apply {
             headline.text = post!!.title
@@ -238,12 +237,18 @@ class SingleGeneralFragment : Fragment() {
             when (menuItem.itemId) {
                 R.id.checked -> {
                     if (!post!!.isLiked) {
-                        post = post!!.copy(isLiked = true)
-                        menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.bookmark_24px)
+                        post = post!!.copy(isLiked = true, time = System.currentTimeMillis())
+                        Log.d("GeneralFragment", "post = $post")
+                        menuItem.icon =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.bookmark_24px)
                         viewModel.like(post!!)
+                        Log.d("GeneralFragment", "post = $post")
                     } else {
                         post = post!!.copy(isLiked = false)
-                        menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.bookmark_border_24px)
+                        menuItem.icon = ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.bookmark_border_24px
+                        )
                         viewModel.dislike(post!!)
                     }
                     true

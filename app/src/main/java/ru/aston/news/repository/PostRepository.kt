@@ -6,9 +6,13 @@ import ru.aston.news.dto.Filters
 import ru.aston.news.dto.Post
 
 interface PostRepository {
-
-
-    fun getFilters(): Filters
+    val singleTravelPost: List<Post>
+    fun getTravelPosts(
+        language: String?,
+        sortBy: String?,
+        from: String?,
+        to: String?
+    ): Single<List<Post>>
 
 
     //Business
@@ -36,6 +40,8 @@ interface PostRepository {
     //fun getPostById(postId: Int): Post?
 
     suspend fun search(text: String)
+    suspend fun searchBD(text: String)
+    val singleSearchPost: List<Post>
 
     val searchPosts: Flow<List<Post>>
 
@@ -49,11 +55,7 @@ interface PostRepository {
 
     suspend fun add(post: Post)
 
-    fun saveRelevant(relevant: String?)
 
-    fun saveLanguage(language: String?)
-
-    fun saveData(startData: String?, toData: String?)
 
 
     //Saved
@@ -62,5 +64,7 @@ interface PostRepository {
 
     val singleSavedPost: List<Post>
     suspend fun remove(post: Post)
+
+    fun deleteOld(time:Long)
 
 }

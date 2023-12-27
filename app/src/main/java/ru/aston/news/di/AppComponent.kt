@@ -23,6 +23,8 @@ import ru.aston.news.uiscreen.SingleBusinessFragment
 import ru.aston.news.uiscreen.SingleGeneralFragment
 import ru.aston.news.uiscreen.SinglePostFragment
 import ru.aston.news.uiscreen.SingleSavedFragment
+import ru.aston.news.uiscreen.SingleSearchFragment
+import ru.aston.news.uiscreen.SingleTravelFragment
 import ru.aston.news.uiscreen.SourceFragment
 import javax.inject.Singleton
 
@@ -72,6 +74,8 @@ interface AppComponent {
 
     fun inject(fragment: GeneralTravelFragment)
 
+    fun inject(fragment: SingleTravelFragment)
 
+    fun inject(fragment: SingleSearchFragment)
 }
 

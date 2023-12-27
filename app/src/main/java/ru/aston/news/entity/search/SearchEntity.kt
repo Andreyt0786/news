@@ -9,7 +9,7 @@ import ru.aston.news.dto.Source
 
 @Entity
 data class SearchEntity(
-    val idSaved:Int,
+    val idSaved: Int,
     @PrimaryKey(autoGenerate = true)
     val idPost: Int,
     @Embedded
@@ -21,12 +21,13 @@ data class SearchEntity(
     val urlToImage: String?,
     val publishedAt: String,
     val content: String?,
-    val isLiked:Boolean,
+    val isLiked: Boolean,
+    val time: Long
 
-    ) {
+) {
 
     fun toDto() = Post(
-        idSaved= idSaved,
+        idSaved = idSaved,
         idPost = idPost.hashCode(),
         source = source,
         author = author,
@@ -37,6 +38,7 @@ data class SearchEntity(
         urlToImage = urlToImage,
         publishedAt = publishedAt,
         isLiked = isLiked,
+        time = time
     )
 
     companion object {
@@ -53,6 +55,7 @@ data class SearchEntity(
                 urlToImage = dto.urlToImage,
                 publishedAt = dto.publishedAt,
                 isLiked = dto.isLiked,
+                time = dto.time
             )
 
     }

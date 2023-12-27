@@ -9,6 +9,8 @@ import ru.aston.news.viewModel.SavedViewModel
 import ru.aston.news.viewModel.SearchViewModel
 import ru.aston.news.viewModel.SingleBusinessViewModel
 import ru.aston.news.viewModel.SingleGeneralViewModel
+import ru.aston.news.viewModel.SingleSearchViewModel
+import ru.aston.news.viewModel.SingleTravelViewModel
 import ru.aston.news.viewModel.SourcePostViewModel
 
 
@@ -25,7 +27,6 @@ interface ViewModelModule {
     @Binds
     fun bindsSingleBusinessViewModel(viewModel: SingleBusinessViewModel): ViewModel
 
-
     @Binds
     fun bindsSingleGeneralViewModel(viewModel: SingleGeneralViewModel): ViewModel
 
@@ -37,5 +38,10 @@ interface ViewModelModule {
 
     @Binds
     fun bindsHeadLineViewModel(viewModel: HeadLineViewModel): ViewModel
+    @Binds
+    fun bindsSingleSearchViewModel(viewModel: SingleSearchViewModel): ViewModel
+
+    @Binds
+    fun bindsSingleTravelViewModel(viewModel: SingleTravelViewModel): ViewModel
 
 }

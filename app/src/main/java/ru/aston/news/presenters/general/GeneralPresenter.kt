@@ -9,13 +9,15 @@ import ru.aston.news.App.Companion.router
 import ru.aston.news.DisposableManager
 import ru.aston.news.dto.Filters
 import ru.aston.news.dto.Screens.ForwardSingleGeneralPost
+import ru.aston.news.repository.FiltersRepository
 import ru.aston.news.repository.PostRepository
 import javax.inject.Inject
 
 
 @InjectViewState
 class GeneralPresenter @Inject constructor(
-    private val generalRepository: PostRepository
+    private val generalRepository: PostRepository,
+    private val filterRepository: FiltersRepository
 ) : MvpPresenter<GeneralView>() {
 
     val TAG = GeneralPresenter::class.java.simpleName
@@ -39,7 +41,7 @@ class GeneralPresenter @Inject constructor(
         )
     }
 
-    fun getFilters(): Filters = generalRepository.getFilters()
+    fun getFilters(): Filters = filterRepository.getFilters()
 
 
     fun navigate(id: Int) {

@@ -13,6 +13,8 @@ import ru.aston.news.uiscreen.SingleBusinessFragment
 import ru.aston.news.uiscreen.SingleGeneralFragment
 import ru.aston.news.uiscreen.SinglePostFragment
 import ru.aston.news.uiscreen.SingleSavedFragment
+import ru.aston.news.uiscreen.SingleSearchFragment
+import ru.aston.news.uiscreen.SingleTravelFragment
 
 object Screens : Screen {
     fun BottomNavigation() = FragmentScreen {
@@ -33,6 +35,14 @@ object Screens : Screen {
 
     fun ForwardSingleBusinessPost(title: Int) = FragmentScreen {
         SingleBusinessFragment.getNewInstance(title)
+    }
+
+    fun ForwardSingleTravelPost(title: Int) = FragmentScreen {
+        SingleTravelFragment.getNewInstance(title)
+    }
+
+    fun ForwardSingleSearchPost(title: Int) = FragmentScreen {
+        SingleSearchFragment.getNewInstance(title)
     }
 
     fun ForwardSingleGeneralPost(title: Int) = FragmentScreen {

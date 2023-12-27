@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import ru.aston.news.App.Companion.router
 import ru.aston.news.dto.Filters
 import ru.aston.news.dto.MainEvent
-import ru.aston.news.repository.PostRepository
+import ru.aston.news.repository.FiltersRepository
 import javax.inject.Inject
 
 class FilterViewModel @Inject constructor(
-    private val repository: PostRepository,
+    private val repository: FiltersRepository,
 ) : ViewModel() {
 
     private val _state = MutableLiveData(repository.getFilters())
@@ -31,7 +31,12 @@ class FilterViewModel @Inject constructor(
             }
 
             is MainEvent.SaveTime -> {
-                saveData(startData = event.startTime, toData = event.endTime)
+                saveData(
+                    startData = event.startTime,
+                    toData = event.endTime,
+                    startTime = event.startT,
+                    endTime = event.endT
+                )
             }
         }
     }
@@ -51,9 +56,14 @@ class FilterViewModel @Inject constructor(
 
     }
 
-    fun saveData(startData: String?, toData: String?) {
-        repository.saveData(startData, toData)
-        _state.value = _state.value?.copy(dateFrom = startData, dateTo = toData)
+    fun saveData(startData: String?, toData: String?, startTime: String?, endTime: String?) {
+        repository.saveData(startData, toData, startTime, endTime)
+        _state.value = _state.value?.copy(
+            dateFrom = startData,
+            dateTo = toData,
+            startTime = startTime,
+            endTime = endTime,
+        )
     }
 }
 

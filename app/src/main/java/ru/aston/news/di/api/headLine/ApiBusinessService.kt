@@ -8,7 +8,7 @@ import ru.aston.news.dto.Response
 interface ApiBusinessService {
 
     //Business
-    @GET("everything?q=business&apiKey=1f070c3add6f4e97a0babd69e1977be9")
+    @GET("everything?q=business&pageSize=20&apiKey=1f070c3add6f4e97a0babd69e1977be9")
 
     fun getAllBusiness(
         @Query("language") language: String?,
@@ -17,9 +17,19 @@ interface ApiBusinessService {
         @Query("to") to: String?,
     ): Single<Response>
 
+    //Travel
+    @GET("everything?q=traveling&pageSize=20&apiKey=1f070c3add6f4e97a0babd69e1977be9")
+
+    fun getAllTravel(
+        @Query("language") language: String?,
+        @Query("sortBy") sortBy: String?,
+        @Query("from") from: String?,
+        @Query("to") to: String?,
+    ): Single<Response>
+
 
     //General
-    @GET("everything?q=general&apiKey=1f070c3add6f4e97a0babd69e1977be9")
+    @GET("everything?q=general&pageSize=20&apiKey=1f070c3add6f4e97a0babd69e1977be9")
 
     fun getAllGeneral(
         @Query("language") language: String?,

@@ -1,36 +1,33 @@
-package ru.aston.news.presenters.headLine
+package ru.aston.news.presenters.travel
 
 import android.util.Log
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import ru.aston.news.App.Companion.router
+import ru.aston.news.App
 import ru.aston.news.DisposableManager
 import ru.aston.news.dto.Filters
-import ru.aston.news.dto.Screens.ForwardSingleBusinessPost
+import ru.aston.news.dto.Screens
+import ru.aston.news.presenters.general.GeneralView
 import ru.aston.news.repository.FiltersRepository
 import ru.aston.news.repository.PostRepository
 import javax.inject.Inject
 
+
 @InjectViewState
-class HeadLinePresenterImpl @Inject constructor(
-    private val repository: PostRepository,
+class TravelPresenter @Inject constructor(
+    private val generalRepository: PostRepository,
     private val filterRepository: FiltersRepository
-) : MvpPresenter<HeadLineView>() {
-    val TAG = HeadLinePresenterImpl::class.java.simpleName
+) : MvpPresenter<TravelView>() {
 
+    val TAG = TravelPresenter::class.java.simpleName
 
-    fun navigate(id: Int) {
-        router.navigateTo(ForwardSingleBusinessPost(id))
-    }
-
-    fun getFilters(): Filters = filterRepository.getFilters()
 
     fun getData(language: String?, sortBy: String?, from: String?, to: String?) {
         viewState.showProgress()
         DisposableManager.add(
-            repository.getBusinessPosts(language, sortBy, from, to)
+            generalRepository.getTravelPosts(language, sortBy, from, to)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ response ->
@@ -44,5 +41,12 @@ class HeadLinePresenterImpl @Inject constructor(
                 })
         )
     }
-}
 
+    fun getFilters(): Filters = filterRepository.getFilters()
+
+
+    fun navigate(id: Int) {
+        App.router.navigateTo(Screens.ForwardSingleTravelPost(id))
+    }
+
+}

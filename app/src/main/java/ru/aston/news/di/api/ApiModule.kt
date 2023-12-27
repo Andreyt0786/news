@@ -5,8 +5,8 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import ru.aston.news.BuildConfig
 import ru.aston.news.di.api.headLine.ApiBusinessService
@@ -33,19 +33,6 @@ class ApiModule {
         logging: HttpLoggingInterceptor,
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(logging)
-        /* .addInterceptor { chain ->
-             val token = "1f070c3add6f4e97a0babd69e1977be9"
-             val request = if (token != null) {
-                 chain.request()
-                     .newBuilder()
-                     .addHeader("Authorization", token)
-                     .build()
-             } else {
-                 chain.request()
-             }
-
-             chain.proceed(request)
-         }*/
         .build()
 
 

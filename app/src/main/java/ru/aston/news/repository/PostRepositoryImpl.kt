@@ -11,20 +11,23 @@ import ru.aston.news.dao.checkSource.CheckSourceDao
 import ru.aston.news.dao.general.GeneralDao
 import ru.aston.news.dao.savedSource.SavedDao
 import ru.aston.news.dao.search.SearchDao
+import ru.aston.news.dao.travel.TravelDao
 import ru.aston.news.di.api.headLine.ApiBusinessService
-import ru.aston.news.dto.Filters
 import ru.aston.news.dto.Post
 import ru.aston.news.dto.Response
 import ru.aston.news.entity.headline.GeneralEntity
 import ru.aston.news.entity.headline.toDto
 import ru.aston.news.entity.headline.toGeneralEntity
 import ru.aston.news.entity.saved.SavedEntity
+import ru.aston.news.entity.saved.toSavedEntity
 import ru.aston.news.entity.search.SearchEntity
 import ru.aston.news.entity.search.toSearchEntity
 import ru.aston.news.entity.source.CheckSourceEntity
 import ru.aston.news.entity.source.toCheckSourceEntity
 import ru.aston.news.entity.toDto
 import ru.aston.news.entity.toEntity
+import ru.aston.news.entity.travel.toDto
+import ru.aston.news.entity.travel.toTravelEntity
 import javax.inject.Inject
 
 
@@ -35,9 +38,29 @@ class PostRepositoryImpl @Inject constructor(
     private val generalDao: GeneralDao,
     private val savedDao: SavedDao,
     private val searchDao: SearchDao,
+    private val travelDao: TravelDao,
 ) : PostRepository {
 
-    private var filters: Filters = Filters()
+
+    override fun getTravelPosts(
+        language: String?,
+        sortBy: String?,
+        from: String?,
+        to: String?
+    ): Single<List<Post>> =
+        apiService.getAllTravel(language, sortBy, from, to)
+            .onErrorResumeNext { Single.just(Response()) }
+            .map { it.posts ?: emptyList() }
+            .flatMap { posts ->
+                travelDao.clear()
+                if (posts.isNotEmpty()) {
+                    // travelDao.clear()
+                    travelDao.insertAll(posts.toTravelEntity())
+                }
+                travelDao.getAll().map { it.toDto() }
+            }
+
+    override val singleTravelPost: List<Post> = travelDao.getPost().map { it.toDto() }
 
 
     //Business
@@ -52,6 +75,7 @@ class PostRepositoryImpl @Inject constructor(
             .map { it.posts ?: emptyList() }
             .flatMap { posts ->
                 if (posts.isNotEmpty()) {
+                    dao.clear()
                     dao.insertAll(posts.toEntity())
                 }
                 dao.getAll().map { it.toDto() }
@@ -73,6 +97,7 @@ class PostRepositoryImpl @Inject constructor(
             .map { it.posts ?: emptyList() }
             .flatMap { posts ->
                 if (posts.isNotEmpty()) {
+                    generalDao.clear()
                     generalDao.insertAll(posts.toGeneralEntity())
                 }
                 generalDao.getAll().map { it.toDto() }
@@ -83,21 +108,30 @@ class PostRepositoryImpl @Inject constructor(
     override fun addGeneral(post: Post) {
         generalDao.insert(GeneralEntity.fromDto(post))
     }
-    override  fun removeGeneral(post: Post) {
+
+    override fun removeGeneral(post: Post) {
         generalDao.removePost(post.idSaved)
     }
 
     override suspend fun search(text: String) {
-
+        searchDao.clear()
+        searchDao.insertAll(filteredDataFromDBBy(text)!!.toSearchEntity())
         val result = apiService.getSearchAll(text)
         if (result.isSuccessful) {
             searchDao.clear()
-            val body = result.body()?.posts
+            val body = result.body()?.posts ?: filteredDataFromDBBy(text)
             searchDao.insertAll(body!!.toSearchEntity())
         } else {
             searchDao.insertAll(filteredDataFromDBBy(text)!!.toSearchEntity())
         }
     }
+
+    override suspend fun searchBD(text: String) {
+        searchDao.insertAll(filteredDataFromDBBy(text)!!.toSearchEntity())
+    }
+
+
+    override val singleSearchPost: List<Post> = searchDao.getPost().map { it.toDto() }
 
     override suspend fun clearSearchDao() {
         searchDao.clear()
@@ -107,11 +141,15 @@ class PostRepositoryImpl @Inject constructor(
         searchDao.getSearchListAll().map { it.map(SearchEntity::toDto) }.flowOn(Dispatchers.Default)
 
     private fun filteredDataFromDBBy(text: String): List<Post>? {
-        return (singleBusinessPost + singleGeneralPost + singleSavedPost).toSet().filter {
-            it.title == text || it.content == text || it.source.name == text || it.author == text
+        return (singleBusinessPost + singleGeneralPost + singleSavedPost + singleTravelPost).filter {
+            it.title.contains(text, ignoreCase = true) || it.content!!.contains(
+                text,
+                ignoreCase = true
+            ) || it.source.name.contains(text, ignoreCase = true) || it.author!!.contains(
+                text,
+                ignoreCase = true
+            ) || it.description!!.contains(text, ignoreCase = true)
         }
-
-
     }
 
 
@@ -137,21 +175,6 @@ class PostRepositoryImpl @Inject constructor(
     }
 
 
-    override fun saveRelevant(relevant: String?) {
-        filters = filters.copy(relevant = relevant)
-    }
-
-    override fun saveLanguage(language: String?) {
-        filters = filters.copy(language = language)
-    }
-
-    override fun saveData(startData: String?, toData: String?) {
-        filters = filters.copy(dateFrom = startData, dateTo = toData)
-    }
-
-    override fun getFilters(): Filters = filters
-
-
     //Saved
 
 
@@ -162,6 +185,12 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun remove(post: Post) {
         savedDao.clear(post.idSaved)
+    }
+
+    override fun deleteOld(time: Long) {
+        val list = singleSavedPost.filter { it.time > time }
+        savedDao.clearAll()
+        savedDao.insertAll(list.toSavedEntity())
     }
 
 }

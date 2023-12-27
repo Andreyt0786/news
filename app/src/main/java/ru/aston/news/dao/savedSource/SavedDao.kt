@@ -40,4 +40,6 @@ interface SavedDao {
     )
     suspend fun likeById(idSaved: Int)
 
+    @Query("DELETE FROM SavedEntity ")
+    fun clearAll()
 }

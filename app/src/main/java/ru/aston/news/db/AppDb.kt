@@ -8,12 +8,14 @@ import ru.aston.news.dao.general.GeneralDao
 import ru.aston.news.dao.savedSource.SavedDao
 import ru.aston.news.dao.search.SearchDao
 import ru.aston.news.dao.sourcePostDao.SourcePostDao
+import ru.aston.news.dao.travel.TravelDao
 import ru.aston.news.entity.headline.GeneralEntity
 import ru.aston.news.entity.PostEntity
 import ru.aston.news.entity.SourcePostEntity
 import ru.aston.news.entity.saved.SavedEntity
 import ru.aston.news.entity.search.SearchEntity
 import ru.aston.news.entity.source.CheckSourceEntity
+import ru.aston.news.entity.travel.TravelEntity
 
 @Database(
     entities = [
@@ -22,7 +24,8 @@ import ru.aston.news.entity.source.CheckSourceEntity
         SourcePostEntity::class,
         CheckSourceEntity::class,
         SavedEntity::class,
-        SearchEntity::class],
+        SearchEntity::class,
+        TravelEntity::class],
     version = 3,
     exportSchema = false
 )
@@ -37,6 +40,8 @@ abstract class AppDb : RoomDatabase() {
 
     abstract fun savedDao(): SavedDao
 
-    abstract fun searchDao():SearchDao
+    abstract fun searchDao(): SearchDao
+
+    abstract fun travelDao(): TravelDao
 
 }

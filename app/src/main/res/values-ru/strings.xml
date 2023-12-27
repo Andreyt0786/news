@@ -33,4 +33,5 @@
     <string name="something_went">Попробуйте еще раз</string>
     <string name="empty_list">Список постов пуст</string>
     <string name="refresh">refresh</string>
+    <string name="checked_data">Выбранная дата</string>
 </resources>

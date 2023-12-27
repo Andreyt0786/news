@@ -11,6 +11,7 @@ import ru.aston.news.dao.general.GeneralDao
 import ru.aston.news.dao.savedSource.SavedDao
 import ru.aston.news.dao.search.SearchDao
 import ru.aston.news.dao.sourcePostDao.SourcePostDao
+import ru.aston.news.dao.travel.TravelDao
 import ru.aston.news.db.AppDb
 import javax.inject.Singleton
 
@@ -59,5 +60,10 @@ class DbModule() {
     fun provideSearchDao(
         appDb: AppDb
     ): SearchDao = appDb.searchDao()
+
+    @Provides
+    fun provideTravelDao(
+        appDb: AppDb
+    ): TravelDao = appDb.travelDao()
 }
 

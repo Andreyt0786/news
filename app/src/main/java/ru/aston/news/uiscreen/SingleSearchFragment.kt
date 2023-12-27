@@ -21,24 +21,18 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import ru.aston.news.App
 import ru.aston.news.R
-import ru.aston.news.databinding.FragmentSavedPostBinding
 import ru.aston.news.databinding.FragmentSinglePostBinding
-import ru.aston.news.viewModel.SavedViewModel
+import ru.aston.news.viewModel.SingleSearchViewModel
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-class SingleSavedFragment : Fragment() {
-
-
-    private var binding: FragmentSavedPostBinding? = null
-
+class SingleSearchFragment : Fragment() {
+    private var binding: FragmentSinglePostBinding? = null
     private val title: Int? by lazy { arguments?.getInt(EXTRA_TITLE) }
 
-
     @Inject
-    lateinit var viewModel: SavedViewModel
-
+    lateinit var viewModel: SingleSearchViewModel
     override fun onAttach(context: Context) {
         super.onAttach(context)
         App.appComponent.inject(this)
@@ -49,69 +43,38 @@ class SingleSavedFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSavedPostBinding.inflate(inflater, container, false)
+        binding = FragmentSinglePostBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
-        Log.d("SingleSavedFragment", "title = $title")
-        val posts = viewModel.singlePost
-        Log.d("SingleSavedFragment", "$posts")
-        var post = posts.find { it.idSaved == title }
-        Log.d("SingleSavedFragment", "$post")
-
-
-        Log.d("SingleSavedFragment", "$title")
+        Log.d("SearchFragment", "title = $title")
+        val posts = viewModel.posts
+        Log.d("SearchFragment", "$posts")
+        var post = posts.find { it.idPost == title }
+        Log.d("SearchFragment", "$post")
+        Log.d("SearchFragment", "$title")
         val time = post?.publishedAt
         val actual = OffsetDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME)
         val formatter = DateTimeFormatter.ofPattern(" MMM, dd yyyy | HH:mm")
         val formatDateTime = actual.format(formatter)
-
         val length: Int = post?.content?.length!!
 
-        binding?.toolbar?.title = post.title
+
         binding?.toolbar?.setNavigationOnClickListener {
+
             viewModel.navigateBack()
         }
-        post = post.copy(isLiked = true)
-
-        binding?.toolbar?.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.checked -> {
-                    if (!post!!.isLiked) {
-                        post = post!!.copy(isLiked = true,time = System.currentTimeMillis())
-                        menuItem.icon =
-                            ContextCompat.getDrawable(requireContext(), R.drawable.bookmark_24px)
-                        viewModel.like(post!!)
-                    } else {
-                        post = post!!.copy(isLiked = false)
-                        viewModel.remove(post!!)
-                        menuItem.icon = ContextCompat.getDrawable(
-                            requireContext(),
-                            R.drawable.bookmark_border_24px
-                        )
-                    }
-                    true
-                }
-
-                else -> false
-            }
-        }
+        binding?.toolbar?.title = post.title
 
 
-        clickable(post!!.content!!, post!!.url)
+        clickable(post.content!!, post.url)
         binding?.apply {
             headline.text = post!!.title
             text.text = post!!.source.name
             data.text = formatDateTime
-
-
-
             if (post!!.urlToImage.isNullOrEmpty()) {
                 binding!!.thumbnail.setImageResource(R.mipmap.noimageavailable)
             } else {
@@ -122,14 +85,30 @@ class SingleSavedFragment : Fragment() {
                     .into(binding!!.thumbnail)
             }
         }
-    }
 
+        binding?.toolbar?.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.checked -> {
+                    if (!post!!.isLiked) {
+                        post = post!!.copy(isLiked = true, time = System.currentTimeMillis())
+                        menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.bookmark_24px)
+                        viewModel.like(post!!)
+                    } else {
+                        post = post!!.copy(isLiked = false)
+                        menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.bookmark_border_24px)
+                    }
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
 
     companion object {
         private const val EXTRA_TITLE = "extra_title"
-
-        fun getNewInstance(title: Int): SingleSavedFragment {
-            return SingleSavedFragment().apply {
+        fun getNewInstance(title: Int): SingleSearchFragment {
+            return SingleSearchFragment().apply {
                 arguments = Bundle().apply {
                     putInt(EXTRA_TITLE, title)
                 }
@@ -140,7 +119,6 @@ class SingleSavedFragment : Fragment() {
     private fun clickable(longText: String, url: String) {
         try {
             val spanned = SpannableString(longText)
-
             val clickableSpan: ClickableSpan = object : ClickableSpan() {
                 override fun onClick(p0: View) {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

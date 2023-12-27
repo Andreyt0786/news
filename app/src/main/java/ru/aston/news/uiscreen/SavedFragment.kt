@@ -1,6 +1,7 @@
 package ru.aston.news.uiscreen
 
 import android.content.Context
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -46,10 +47,11 @@ class SavedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        deleteOldPosts()
         lifecycleScope.launch {
             viewModel.posts.collectLatest {
                 adapter.submitList(it)
+                Log.d("SaveFragment", "posts = $it")
                 binding?.refreshView?.isRefreshing = false
                 binding?.errorGroup?.isVisible = it.isEmpty()
             }
@@ -88,4 +90,9 @@ class SavedFragment : Fragment() {
         list.adapter = adapter
     }
 
+    private fun deleteOldPosts() {
+        val currentTime = System.currentTimeMillis()
+        val countTime = currentTime - 1209600000
+        viewModel.delete(countTime)
+    }
 }

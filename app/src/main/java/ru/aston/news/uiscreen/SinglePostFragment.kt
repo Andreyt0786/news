@@ -16,13 +16,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import ru.aston.news.App
 import ru.aston.news.R
 import ru.aston.news.databinding.FragmentSinglePostBinding
-import ru.aston.news.dto.Screens.BackCheckSource
-import ru.aston.news.dto.Screens.ForwardCheckSource
 import ru.aston.news.viewModel.CheckSourceViewModel
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
@@ -64,7 +63,7 @@ class SinglePostFragment : Fragment() {
         Log.d("SinglePostFragment", "title")
         val posts = viewModel.listPost
         Log.d("SinglePostFragment", "$posts")
-        val post = posts.find { it.idPost == title }
+        var post = posts.find { it.idPost == title }
         Log.d("SinglePostFragment", "$post")
 
 
@@ -76,15 +75,22 @@ class SinglePostFragment : Fragment() {
 
         val length: Int = post?.content?.length!!
 
-
+        binding?.toolbar?.title = post.title
         binding?.toolbar?.setNavigationOnClickListener {
-            viewModel.navigatetoSource(prevesId,prevesId)
+            viewModel.navigatetoSource(prevesId, prevesId)
         }
 
         binding?.toolbar?.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.checked -> {
-                    viewModel.like(post)
+                    if (!post!!.isLiked) {
+                        post = post!!.copy(isLiked = true, time = System.currentTimeMillis())
+                        menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.bookmark_24px)
+                        viewModel.like(post!!)
+                    } else {
+                        post = post!!.copy(isLiked = false)
+                        menuItem.icon = ContextCompat.getDrawable(requireContext(), R.drawable.bookmark_border_24px)
+                    }
                     true
                 }
 
@@ -92,17 +98,17 @@ class SinglePostFragment : Fragment() {
             }
         }
 
-        clickable(post.content!!, post.url)
+        clickable(post!!.content!!, post!!.url)
         binding?.apply {
-            headline.text = post.title
-            text.text = post.source.name
+            headline.text = post!!.title
+            text.text = post!!.source.name
             data.text = formatDateTime
 
 
-            if (post.urlToImage.isNullOrEmpty()) {
+            if (post!!.urlToImage.isNullOrEmpty()) {
                 binding!!.thumbnail.setImageResource(R.mipmap.noimageavailable)
             } else {
-                val url = post.urlToImage
+                val url = post!!.urlToImage
                 Glide.with(binding!!.thumbnail)
                     .load(url)
                     .timeout(10000)
@@ -115,7 +121,7 @@ class SinglePostFragment : Fragment() {
         private const val EXTRA_TITLE = "extra_title"
         private const val EXTRA_ID = "extra_id"
 
-        fun getNewInstance(title: Int, prevId:String): SinglePostFragment {
+        fun getNewInstance(title: Int, prevId: String): SinglePostFragment {
             return SinglePostFragment().apply {
                 arguments = Bundle().apply {
                     putInt(EXTRA_TITLE, title)

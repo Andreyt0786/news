@@ -60,6 +60,7 @@ class SourceFragment() : Fragment() {
         lifecycleScope.launch {
             viewModel.posts.collectLatest {
                 adapter.submitList(it)
+                binding?.emptyGroup?.isVisible = it.isEmpty()
                 binding?.refreshView?.isRefreshing = false
             }
         }
@@ -72,6 +73,10 @@ class SourceFragment() : Fragment() {
             binding?.progress?.isVisible = state.loading
             binding?.refreshView?.isRefreshing = state.refreshing
             binding?.errorGroup?.isVisible = state.error
+            if(state.error){
+                binding?.emptyGroup?.isVisible = false
+            }
+           // binding?.emptyGroup?.isVisible = state.emptyGroup
         }
 
         binding?.refreshView?.setOnRefreshListener {

@@ -21,8 +21,9 @@ data class PostEntity(
     val publishedAt: String,
     val content: String?,
     val isLiked: Boolean,
+    val time: Long
 
-    ) {
+) {
 
     fun toDto() = Post(
         idSaved = idSaved,
@@ -36,6 +37,7 @@ data class PostEntity(
         urlToImage = urlToImage,
         publishedAt = publishedAt,
         isLiked = isLiked,
+        time = time
     )
 
     companion object {
@@ -51,7 +53,8 @@ data class PostEntity(
                 url = dto.url,
                 urlToImage = dto.urlToImage,
                 publishedAt = dto.publishedAt,
-                isLiked = dto.isLiked
+                isLiked = dto.isLiked,
+                time = dto.time
             )
     }
 }

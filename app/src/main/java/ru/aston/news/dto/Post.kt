@@ -21,6 +21,7 @@ data class Post(
     val publishedAt:String,
     var content:String?,
     var isLiked:Boolean,
+    var time:Long,
 )
 data class Source(
     val id:String?,

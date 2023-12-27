@@ -1,5 +1,4 @@
-package ru.aston.news.entity.headline
-
+package ru.aston.news.entity.travel
 
 import androidx.room.Embedded
 import androidx.room.Entity
@@ -7,9 +6,10 @@ import androidx.room.PrimaryKey
 import ru.aston.news.dto.Post
 import ru.aston.news.dto.Source
 
+
 @Entity
-data class GeneralEntity(
-    val idSaved:Int,
+data class TravelEntity(
+    val idSaved: Int,
     @PrimaryKey(autoGenerate = true)
     val idPost: Int,
     @Embedded
@@ -21,13 +21,13 @@ data class GeneralEntity(
     val urlToImage: String?,
     val publishedAt: String,
     val content: String?,
-    val isLiked:Boolean,
-    val time:Long
+    val isLiked: Boolean,
+    val time: Long
 
-    ) {
+) {
 
     fun toDto() = Post(
-        idSaved= idSaved,
+        idSaved = idSaved,
         idPost = idPost.hashCode(),
         source = source,
         author = author,
@@ -38,12 +38,12 @@ data class GeneralEntity(
         urlToImage = urlToImage,
         publishedAt = publishedAt,
         isLiked = isLiked,
-        time = time,
+        time = time
     )
 
     companion object {
         fun fromDto(dto: Post) =
-            GeneralEntity(
+            TravelEntity(
                 idSaved = dto.idSaved,
                 idPost = dto.idPost,
                 source = dto.source,
@@ -62,5 +62,5 @@ data class GeneralEntity(
 
 }
 
-fun List<GeneralEntity>.toDto(): List<Post> = map(GeneralEntity::toDto)
-fun List<Post>.toGeneralEntity(): List<GeneralEntity> = map(GeneralEntity.Companion::fromDto)
+fun List<TravelEntity>.toDto(): List<Post> = map(TravelEntity::toDto)
+fun List<Post>.toTravelEntity(): List<TravelEntity> = map(TravelEntity.Companion::fromDto)

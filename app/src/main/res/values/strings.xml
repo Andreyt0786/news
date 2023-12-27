@@ -32,4 +32,5 @@
     <string name="something_went">Try later</string>
     <string name="empty_list">There is no posts</string>
     <string name="refresh">refresh</string>
+    <string name="checked_data">Checked data</string>
 </resources>

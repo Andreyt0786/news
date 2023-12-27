@@ -27,6 +27,9 @@ class SavedViewModel @Inject constructor(
     val singlePost = repository.singleSavedPost
 
 
+    fun delete(countTime:Long){
+        repository.deleteOld(countTime)
+    }
     fun navigateBack() {
         App.router.navigateTo(ForwardSavedPost())
     }

@@ -10,4 +10,8 @@ interface HeadLineView : MvpView {
     fun updateRecycler(posts: List<Post>)
 
     fun navigToPost(id:Int)
+
+    fun showProgress()
+
+    fun error()
 }

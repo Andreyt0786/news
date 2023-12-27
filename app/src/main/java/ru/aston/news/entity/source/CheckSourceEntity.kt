@@ -22,7 +22,8 @@ data class CheckSourceEntity(
     val urlToImage: String?,
     val publishedAt: String,
     val content: String?,
-    val isLiked: Boolean
+    val isLiked: Boolean,
+    val time: Long
 ) {
 
     fun toDto() = Post(
@@ -37,6 +38,7 @@ data class CheckSourceEntity(
         urlToImage = urlToImage,
         publishedAt = publishedAt,
         isLiked = isLiked,
+        time = time
     )
 
     companion object {
@@ -52,7 +54,8 @@ data class CheckSourceEntity(
                 url = dto.url,
                 urlToImage = dto.urlToImage,
                 publishedAt = dto.publishedAt,
-                isLiked = dto.isLiked
+                isLiked = dto.isLiked,
+                time = dto.time
             )
 
     }

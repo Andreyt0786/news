@@ -59,14 +59,16 @@ class SearchFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.posts.collectLatest {
                 adapter.submitList(it)
+                Log.d("WARNING2", "posts = $it")
                 binding?.refreshView?.isRefreshing = false
+                binding?.errorGroup?.isVisible = it.isEmpty()
+                }
             }
-        }
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
             binding?.progress?.isVisible = state.loading
             binding?.refreshView?.isRefreshing = state.refreshing
-            binding?.errorGroup?.isVisible = state.error
+           // binding?.errorGroup?.isVisible = state.error
         }
 
         binding?.refreshView?.setOnRefreshListener {

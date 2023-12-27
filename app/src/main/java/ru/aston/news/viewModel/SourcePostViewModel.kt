@@ -10,13 +10,14 @@ import ru.aston.news.dto.Filters
 import ru.aston.news.dto.Screens
 import ru.aston.news.dto.Screens.ForwardCheckSource
 import ru.aston.news.model.SourceModelState
+import ru.aston.news.repository.FiltersRepository
 import ru.aston.news.repository.PostRepository
 import ru.aston.news.repository.sourcePostRepository.SourcePostRepository
 import javax.inject.Inject
 
 class SourcePostViewModel @Inject constructor(
     private val repository: SourcePostRepository,
-    private val postRepository: PostRepository
+    private val filterRepository: FiltersRepository
 ) : ViewModel() {
 
     private val _state = MutableLiveData(SourceModelState())
@@ -36,7 +37,7 @@ class SourcePostViewModel @Inject constructor(
     }
 
 
-    fun getFilters(): Filters = postRepository.getFilters()
+    fun getFilters(): Filters = filterRepository.getFilters()
     fun navigateToSourceFrag(id: String, name: String) {
         router.navigateTo(ForwardCheckSource(id, name))
     }
